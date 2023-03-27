@@ -6,12 +6,19 @@
 <script>
 import HelloWorld from './components/HelloWorld.vue'
 
-export default {
+import { defineComponent, provide } from 'vue';
+import store from './store/Store'
+
+export default defineComponent({
   name: 'App',
   components: {
     HelloWorld
-  }
-}
+  },
+  setup() {
+    provide('store',store)
+  },
+})
+
 </script>
 
 <style>
