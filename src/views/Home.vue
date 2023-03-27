@@ -21,13 +21,11 @@
 			<div id="menu_buttons">
 				<div 
 					class="button" 
-					<!--@click="new_pass_and_play"-->
 				>
 					Pass &amp; Play
 				</div>
 				<div
 					class="button" 
-					<!--@click="online_games"--> 
 				>
 					Play Online
 				</div>
