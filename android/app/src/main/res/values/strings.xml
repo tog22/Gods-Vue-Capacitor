@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Path of the Gods</string>
+    <string name="title_activity_main">Path of the Gods</string>
+    <string name="package_name">com.togapps.gods</string>
+    <string name="custom_url_scheme">com.togapps.gods</string>
+</resources>

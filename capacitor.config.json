@@ -1,0 +1,6 @@
+{
+  "appId": "com.togapps.gods",
+  "appName": "Path of the Gods",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}
