@@ -1,18 +1,51 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+	<div class="game_world_root mob_style dev">
+		<div class="menu_bar">
+			<div class="s_left">
+				<span class="back" @click="back_from_pnp">
+					⬅️
+				</span>
+			</div>
+			<div class="s_middle">
+				<h1>
+					Path of the Gods
+				</h1>
+			</div>
+			<div class="s_right">
+			</div>
+		</div>
+		<div id="menu" class="screen">
+			<h1>
+				Path of the Gods
+			</h1>
+			<div id="menu_buttons">
+				<div 
+					class="button" 
+					<!--@click="new_pass_and_play"-->
+				>
+					Pass &amp; Play
+				</div>
+				<div
+					class="button" 
+					<!--@click="online_games"--> 
+				>
+					Play Online
+				</div>
+				<div class="button">
+					View Rules
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
-  name: 'Home',
-  components: {
-    HelloWorld
-  }
+	name: 'Home',
+	components: {
+		
+	}
 }
 </script>
