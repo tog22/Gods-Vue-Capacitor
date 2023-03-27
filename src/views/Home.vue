@@ -1,21 +1,7 @@
 <template>
 	<div class="game_world_root mob_style dev">
-		<div class="menu_bar">
-			<div class="s_left">
-				<span class="back" @click="back_from_pnp">
-					⬅️
-				</span>
-			</div>
-			<div class="s_middle">
-				<h1>
-					Path of the Gods
-				</h1>
-			</div>
-			<div class="s_right">
-			</div>
-		</div>
 		<div id="menu" class="screen">
-			<h1>
+			<h1 class="page_title">
 				Path of the Gods
 			</h1>
 			<div id="menu_buttons">
@@ -29,9 +15,9 @@
 				>
 					Play Online
 				</div>
-				<div class="button">
+				<router-link class="button" to="/rules">
 					View Rules
-				</div>
+				</router-link>
 			</div>
 		</div>
 	</div>
