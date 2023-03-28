@@ -3,16 +3,32 @@
 </template>
 
 <script>
-import { defineComponent, provide } from 'vue'
+
+/*******************
+**   ⤵️ IMPORTS   **
+*******************/
+
+// External libraries
+import { defineComponent, provide, inject } from 'vue'
 import firebase_messaging from './firebase'
 
+// Auxiliaries
+import store from './store/Store'
+
+// Styles, etc.
 import '@/assets/styles.css'
 
 export default defineComponent({
 	name: 'App',
 	setup() {
 
-		/******************
+		/*******************
+        **  📦 DATA STORE **
+        *******************/
+
+        provide('store',store)
+
+        /******************
 		**  🔥 FIREBASE  **
 		******************/
 
@@ -21,7 +37,7 @@ export default defineComponent({
 		get_token.then(
 			function (result) {
 				
-				// store.token = result.token
+				store.state.token = result
 
 				lo('🔥 FCM registration token:')
 				lo(result)
@@ -38,7 +54,7 @@ export default defineComponent({
 
 			},
 			function (error) {
-				lo('🔥 FCM: getting token')
+				lo('🔥 FCM: error getting token')
 			}
 		);
 
@@ -60,6 +76,9 @@ export default defineComponent({
 		})
 
 		provide('messaging', firebase_messaging)
+
+
+
 
 	}
 })

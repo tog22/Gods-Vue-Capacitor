@@ -5,13 +5,9 @@ const STATE_NAME = "gods_alpha_datastore";
 var store_parent // What'll get exported
 
 const default_state = {
-		test_initialization:  'initialized',
-		user: {
-		},
-		current: {
-		},
-		sections: {
-		}
+        logged_in: 	        true,
+        user:			    "Tomek",
+        token:		        'unset'
 }
 
 const getdefault_state = () => {
@@ -37,7 +33,7 @@ watch(
 
 function update_recursively(to_update, to_match) {
 	for (var key in to_match) {
-		if (!to_match.hasOwnProperty(key)) {
+		if (!to_match.hasOwnProperty(key)) { // eslint-disable-line no-prototype-builtins
 			continue;
 		} else if (typeof to_match[key] == "object" && to_match[key] !== null) {
 			if (key in to_update) {
