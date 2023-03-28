@@ -1,6 +1,9 @@
 {
   "name": "vue-capacitor-fresh",
   "version": "0.1.0",
+  "productName": "Gods",
+  "author": "TogApps",
+  "description": "A richly strategic board game",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -8,14 +11,14 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@capacitor/android": "^4.7.1",
-    "@capacitor/cli": "^4.7.1",
-    "@capacitor/core": "^4.7.1",
-    "@capacitor/ios": "^4.7.1",
     "core-js": "^3.6.5",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
-	"firebase": "^8.10.1"
+	"firebase": "^8.10.1",
+	"@capacitor/android": "^4.7.1",
+    "@capacitor/cli": "^4.7.1",
+    "@capacitor/core": "^4.7.1",
+    "@capacitor/ios": "^4.7.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.13",
