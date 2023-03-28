@@ -3,7 +3,9 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, provide } from 'vue'
+import firebase_messaging from './firebase'
+
 import '@/assets/styles.css'
 
 export default defineComponent({
