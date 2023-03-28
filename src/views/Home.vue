@@ -5,17 +5,22 @@
 				Path of the Gods
 			</h1>
 			<div id="menu_buttons">
-				<div 
+				<router-link 
 					class="button" 
+					to="/play"
 				>
 					Pass &amp; Play
-				</div>
-				<div
+				</router-link>
+				<router-link
 					class="button" 
+					to="/online"
 				>
 					Play Online
-				</div>
-				<router-link class="button" to="/rules">
+				</router-link>
+				<router-link 
+					class="button" 
+					to="/rules"
+				>
 					View Rules
 				</router-link>
 			</div>
