@@ -19,17 +19,19 @@
 					View Rules
 				</router-link>
 			</div>
+            <Debug_Display/>
 		</div>
 	</div>
 </template>
 
 <script>
 // @ is an alias to /src
+import Debug_Display from '@/components/Debug_Display'
 
 export default {
 	name: 'Home',
-	components: {
-		
-	}
+    components: { 
+        Debug_Display 
+    }
 }
 </script>

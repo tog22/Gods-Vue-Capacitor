@@ -13,11 +13,17 @@
 	<div class="s_right">
 	</div>
 </div>
+<Debug_Display/>
 </template>
 
 <script>
+import Debug_Display from '@/components/Debug_Display.vue'
+
 export default {
-	name: 'Menu_Bar'
+    name: "Menu_Bar",
+    components: { 
+        Debug_Display 
+    }
 }
 </script>
 

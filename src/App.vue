@@ -3,9 +3,13 @@
 </template>
 
 <script>
+// External libraries
 import { defineComponent, provide } from 'vue'
 import { Capacitor } from '@capacitor/core';
 import { Dialog } from '@capacitor/dialog';
+
+// Internal libraries and services
+import bus from '@/auxiliary/bus'
 
 
 /******************
@@ -93,14 +97,13 @@ const getDeliveredNotifications = async () => {
 export default defineComponent({
 	name: 'App',
 	setup() {
-        const showAlert = async () => {
-            await Dialog.alert({
-                message: 'Message goes here',
-            });
-        };
-        Dialog.alert({
-            message: 'msg',
-        });
+        // ↓ Timeout necessary to allow the DOM to load
+        setTimeout(function(){
+            bus.emit('debug display', 'Hello world')
+        }, 500); 
+        // Dialog.alert({
+        //     message: 'msg',
+        // });
 	}
 })
 
