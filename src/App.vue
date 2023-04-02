@@ -19,12 +19,12 @@ import bus from '@/auxiliary/bus'
 // ↓ Non-Capacitor version
 // import firebase_messaging from './firebase'
 
-// import {
-//     ActionPerformed,
-//     PushNotificationSchema,
-//     PushNotifications,
-//     Token,
-// } from '@capacitor/push-notifications';
+import {
+    ActionPerformed,
+    PushNotificationSchema,
+    PushNotifications,
+    Token,
+} from '@capacitor/push-notifications';
 
 import '@/assets/styles.css'
 
@@ -38,14 +38,16 @@ import '@/assets/styles.css'
 //     message: 'this is an error',
 // });
 
-// if (Capacitor.isNativePlatform()) {
-//     PushNotifications.register().then((token) => {
-//         alert(2)
-//         alert('My token: ' + token);
-//     });
-// } else {
+if (Capacitor.isNativePlatform()) {
+    PushNotifications.register();
+    // PushNotifications.register().then((token) => {
+        // setTimeout(function(){
+        //     bus.emit('debug display', 'My token: ' + token)
+        // }, 2000); 
+    // });
+} else {
 
-// }
+}
 
 /*
 const addListeners = async () => {
@@ -98,9 +100,9 @@ export default defineComponent({
 	name: 'App',
 	setup() {
         // ↓ Timeout necessary to allow the DOM to load
-        setTimeout(function(){
-            bus.emit('debug display', 'Hello world')
-        }, 500); 
+        // setTimeout(function(){
+        //     bus.emit('debug display', 'App.vue loaded')
+        // }, 500); 
         // Dialog.alert({
         //     message: 'msg',
         // });
