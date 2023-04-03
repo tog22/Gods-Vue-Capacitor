@@ -10,6 +10,9 @@
 **   ⤵️ IMPORTS   **
 *******************/
 
+// Auxiliaries
+import bus from '@/auxiliary/bus'
+
 // Components
 
 /*********************

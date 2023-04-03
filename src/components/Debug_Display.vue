@@ -1,6 +1,8 @@
 <template>
     <div class="debug_display">
-        Debug: {{text}}
+        <div v-for="(message, index) in messages" :key="'i'+index">
+            {{ message }}
+        </div>
     </div>
 </template>
 
@@ -20,14 +22,27 @@ import bus from '@/auxiliary/bus'
 export default {
     name: 'Debug_Display',
     created() {
-        bus.on('debug display', (msg) => {
-            this.text = msg
+        bus.on('debug display', (message) => {
+            this.messages.push(message)
         })
     },
     data() {
         return {
-            text: 'Debug Display'
+            messages: [
+                'Debug Display'
+            ]
         }
     },
 }
 </script>
+
+<style scoped>
+
+.debug_display {
+    overflow-y: scroll;
+    height: 2.8em;
+    font-size: 0.8em;
+    background: #7c98b3;
+}
+
+</style>

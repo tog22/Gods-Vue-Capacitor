@@ -11,6 +11,9 @@
 		</h1>
 	</div>
 	<div class="s_right">
+        <span class="dev_button" @click="dev_button()">
+            #️⃣
+        </span>
 	</div>
 </div>
 <Debug_Display/>
@@ -21,6 +24,9 @@
 /*******************
 **   ⤵️ IMPORTS   **
 *******************/
+
+// Auxiliaries
+import bus from '@/auxiliary/bus'
 
 // Components
 import Debug_Display from '@/components/Debug_Display.vue'
@@ -34,6 +40,11 @@ export default {
 	name: 'Menu_Bar',
     components: { 
         Debug_Display 
+    },
+    methods: {
+        dev_button() {
+            bus.emit('debug display', 'dev button clicked')
+        }
     }
 }
 </script>

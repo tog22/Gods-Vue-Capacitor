@@ -43,6 +43,9 @@
 // External libraries
 import { inject } from 'vue'
 
+// Auxiliaries
+import bus from '@/auxiliary/bus'
+
 // Components
 import Debug_Display from '@/components/Debug_Display.vue'
 
@@ -59,7 +62,7 @@ export default {
     data() 
     {
         const store_parent = inject("store")
-        console.log('store_parent.state in Home.vue = ',store_parent.state)
+        // console.log('store_parent.state in Home.vue = ',store_parent.state)
 
         return {
             store:					store_parent.state,
