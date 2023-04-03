@@ -4,16 +4,22 @@
 
 <script>
 // External libraries
-import { defineComponent } from 'vue'
+import { defineComponent, provide, inject } from 'vue'
 import '@/assets/styles.css'
 
-// Internal libraries and services
+// Auxiliaries
 import bus from '@/auxiliary/bus'
-
+import store from './store/Store'
 
 export default defineComponent({
 	name: 'App',
 	setup() {
+        
+        /*******************
+        **  📦 DATA STORE **
+        *******************/
+        provide('store',store)
+
         // ↓ Timeout necessary to allow the DOM to load
         setTimeout(function(){
             bus.emit('debug display', 'Hello world')
