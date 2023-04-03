@@ -1,6 +1,9 @@
 {
-  "name": "vue-capacitor-fresh",
+  "name": "Gods",
   "version": "0.1.0",
+  "productName": "Gods",
+  "author": "TogApps",
+  "description": "A richly strategic board game",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
