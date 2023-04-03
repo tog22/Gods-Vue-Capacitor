@@ -7,7 +7,7 @@ const routes = [
 		name: 'Home',
 		component: Home,
 		meta: {
-			title: 'Path of the Gods | A richly strategic board game'
+			title: 'Path of the Gods | A richly strategic board game'
 		}
 	},
 	{

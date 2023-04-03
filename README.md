@@ -1,9 +1,19 @@
-# vue-capacitor-fresh
+# ⚡️ Gods
 
 ## Project setup
 ```
 npm install
+npm i --save  @capacitor-firebase/messaging firebase mitt
 ```
+
+## Using Capacitor
+```
+npm run build
+npx cap sync
+npx cap run android
+```
+
+## Standard Vue commands
 
 ### Compiles and hot-reloads for development
 ```
@@ -20,5 +30,5 @@ npm run build
 npm run lint
 ```
 
-### Customize configuration
+#### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
