@@ -28,17 +28,33 @@
                 FCM token:<br />
                 {{ store.token }}
             </div>
+            <br />
+            <Debug_Display/>
 		</div>
 	</div>
 </template>
 
 <script>
+
+/*******************
+**   ⤵️ IMPORTS   **
+*******************/
+
+// External libraries
 import { inject } from 'vue'
+
+// Components
+import Debug_Display from '@/components/Debug_Display.vue'
+
+
+/*********************
+**   *️⃣ MAIN CODE   **
+*********************/
 
 export default {
 	name: 'Home',
 	components: {
-		
+		Debug_Display
 	},
     data() 
     {

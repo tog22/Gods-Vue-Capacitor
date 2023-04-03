@@ -1,11 +1,22 @@
 <template>
     <div class="debug_display">
-        {{text}}
+        Debug: {{text}}
     </div>
 </template>
 
 <script>
+
+/*******************
+**   ⤵️ IMPORTS   **
+*******************/
+
 import bus from '@/auxiliary/bus'
+
+
+/*********************
+**   *️⃣ MAIN CODE   **
+*********************/
+
 export default {
     name: 'Debug_Display',
     created() {

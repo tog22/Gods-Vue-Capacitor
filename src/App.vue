@@ -3,13 +3,31 @@
 </template>
 
 <script>
+
+/*******************
+**   ⤵️ IMPORTS   **
+*******************/
+
 // External libraries
-import { defineComponent, provide, inject } from 'vue'
-import '@/assets/styles.css'
+import { defineComponent, provide, inject } from 'vue';
+import { Capacitor } from '@capacitor/core';
+import {
+  ActionPerformed,
+  PushNotificationSchema,
+  PushNotifications,
+  Token,
+} from '@capacitor/push-notifications';
+
 
 // Auxiliaries
+import '@/assets/styles.css'
 import bus from '@/auxiliary/bus'
 import store from './store/Store'
+
+
+/*********************
+**   *️⃣ MAIN CODE   **
+*********************/
 
 export default defineComponent({
 	name: 'App',
@@ -20,10 +38,19 @@ export default defineComponent({
         *******************/
         provide('store',store)
 
-        // ↓ Timeout necessary to allow the DOM to load
-        setTimeout(function(){
-            bus.emit('debug display', 'Hello world')
-        }, 500); 
+		
+		/******************
+		**  🔥 FIREBASE  **
+		******************/
+
+		if (Capacitor.isNativePlatform()) {
+			
+			setTimeout(function(){
+				bus.emit('debug display', 'isNativePlatform')
+			}, 2000); 
+			
+		}
+        
 	}
 })
 

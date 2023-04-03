@@ -2,7 +2,8 @@ import { reactive, watch } from "vue";
 
 const STATE_NAME = "gods_alpha_datastore";
 
-var store_parent // What'll get exported
+let store_parent // What'll get exported
+let load_saved_state = false
 
 const default_state = {
         logged_in: 	        true,
@@ -11,7 +12,7 @@ const default_state = {
 }
 
 const getdefault_state = () => {
-	if (localStorage.getItem(STATE_NAME) !== null) {
+	if (load_saved_state && localStorage.getItem(STATE_NAME) !== null) {
 		let saved_state = JSON.parse(localStorage.getItem(STATE_NAME))
 		update_recursively(saved_state, default_state)
 		return saved_state

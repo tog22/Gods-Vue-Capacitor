@@ -17,8 +17,18 @@
 </template>
 
 <script>
+
+/*******************
+**   ⤵️ IMPORTS   **
+*******************/
+
 // Components
 import Debug_Display from '@/components/Debug_Display.vue'
+
+
+/*********************
+**   *️⃣ MAIN CODE   **
+*********************/
 
 export default {
 	name: 'Menu_Bar',

@@ -12,9 +12,21 @@
 </template>
 
 <script>
+
+/*******************
+**   ⤵️ IMPORTS   **
+*******************/
+
+// External libraries
 import { defineComponent } from 'vue'
 
+// Components
 import Menu_Bar from '../components/Menu_Bar.vue'
+
+
+/*********************
+**   *️⃣ MAIN CODE   **
+*********************/
 
 export default defineComponent({
 	name: 'Online_Games_Menu_Page',

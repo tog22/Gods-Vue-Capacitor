@@ -8,10 +8,21 @@
 </template>
 
 <script>
+/*******************
+**   ⤵️ IMPORTS   **
+*******************/
+
+// External libraries
 import { defineComponent } from 'vue'
 
+// Components
 import Menu_Bar from '../components/Menu_Bar.vue'
 import Game_World from '../components/Game_World.vue'
+
+
+/*********************
+**   *️⃣ MAIN CODE   **
+*********************/
 
 export default defineComponent({
 	name: 'Pass_and_Play_Page',
