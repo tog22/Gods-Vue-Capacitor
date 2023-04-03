@@ -5,34 +5,62 @@
 				Path of the Gods
 			</h1>
 			<div id="menu_buttons">
-				<div 
+				<router-link 
 					class="button" 
+					to="/play"
 				>
 					Pass &amp; Play
-				</div>
-				<div
+				</router-link>
+				<router-link
 					class="button" 
+					to="/online"
 				>
 					Play Online
-				</div>
-				<router-link class="button" to="/rules">
+				</router-link>
+				<router-link 
+					class="button" 
+					to="/rules"
+				>
 					View Rules
 				</router-link>
 			</div>
-            <Debug_Display/>
+            <div class="debug_zone_home" style="width: 320px;">
+                FCM token:<br />
+                {{ store.token }}
+            </div>
 		</div>
 	</div>
 </template>
 
 <script>
-// Components
-import Debug_Display from '@/components/Debug_Display.vue'
-
+import { inject } from 'vue'
 
 export default {
 	name: 'Home',
 	components: {
-        Debug_Display 
-	}
+		
+	},
+    data() 
+    {
+        const store_parent = inject("store")
+        console.log('store_parent.state in Home.vue = ',store_parent.state)
+
+        return {
+            store:					store_parent.state,
+            // turn: 					turn,
+            // current_player: 		current_player,
+            // piece_has_moved: 		false,
+            // inspiration_has_moved: 	false,
+            // selected_row: 			null,
+            // selected_col: 			null,
+            // row_delta: 				null,
+            // col_delta: 				null,
+            // winner:					null,
+            // win_type: 				null,
+            // online_game:			this.online_screen,
+            // sotw: 					sotw,
+        };
+        
+    }
 }
 </script>
