@@ -49,8 +49,6 @@ export default defineComponent({
 				bus.emit('debug display', 'isNativePlatform')
 			}, 2000);
 
-            PushNotifications.requestPermissions()
-
 		}
         
 	}
