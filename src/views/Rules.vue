@@ -4,7 +4,7 @@
 			<Menu_Bar />
 			<div id="inner_selecting_online">
 				<h2>
-					Online Games
+					Rules
 				</h2>
 			</div>
 		</div>

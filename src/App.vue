@@ -50,21 +50,20 @@ export default defineComponent({
 		setTimeout(function(){
 				bus.emit('debug display', '2')
 			}, 2000); 
-
 		if (Capacitor.isNativePlatform()) {
 			
 			setTimeout(function(){
 				bus.emit('debug display', 'isNativePlatform')
-			}, 2000); 
+			}, 2000);
 
 		}
         
 	}
 })
 
-/****************
-**	FUNCTIONS  **
-*****************/
+/*******************
+**	🛠 FUNCTIONS  **
+*******************/
 
 function fcm_body_to_object(string) {
 	
