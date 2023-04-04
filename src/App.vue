@@ -43,18 +43,13 @@ export default defineComponent({
 		**  🔥 FIREBASE  **
 		******************/
 
-
-		setTimeout(function(){
-				bus.emit('debug display', '1')
-			}, 2000); 
-		setTimeout(function(){
-				bus.emit('debug display', '2')
-			}, 2000); 
-		if (Capacitor.isNativePlatform()) {
+        if (Capacitor.isNativePlatform()) {
 			
 			setTimeout(function(){
 				bus.emit('debug display', 'isNativePlatform')
 			}, 2000);
+
+            PushNotifications.requestPermissions()
 
 		}
         
