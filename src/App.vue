@@ -49,6 +49,39 @@ export default defineComponent({
 				bus.emit('debug display', 'isNativePlatform')
 			}, 2000);
 
+            PushNotifications.requestPermissions().then(result => {
+				if (result.receive === 'granted') {
+					// Register with Apple / Google to receive push via APNS/FCM
+					alert('Push notifications are enabled')
+					PushNotifications.register();
+				} else {
+					// Show some error
+					alert('Push notifications are not enabled')
+				}
+			});
+
+			PushNotifications.addListener('registration', (token) => {
+				alert('Push registration success, token: ' + token.value);
+			});
+
+			PushNotifications.addListener('registrationError', (error) => {
+				alert('Error on registration: ' + JSON.stringify(error));
+			});
+
+			PushNotifications.addListener(
+			'pushNotificationReceived',
+			(notification) => {
+				alert('Push received: ' + JSON.stringify(notification));
+			},
+			);
+
+			PushNotifications.addListener(
+			'pushNotificationActionPerformed',
+			(notification) => {
+				alert('Push action performed: ' + JSON.stringify(notification));
+			},
+			);
+
 		}
         
 	}

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "306649763697",
+    "project_id": "godsgamefbase",
+    "storage_bucket": "godsgamefbase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:306649763697:android:c85c87ae62d5193f13b0d0",
+        "android_client_info": {
+          "package_name": "com.togapps.gods"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "306649763697-e4f67qi2cqh8omh2ed6o2th16p89hneg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCG7V8aBckAfSl6dJ7xSQIVfGE5q5w65fw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "306649763697-e4f67qi2cqh8omh2ed6o2th16p89hneg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
