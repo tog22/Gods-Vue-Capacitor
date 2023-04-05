@@ -21,6 +21,7 @@ import { defineComponent } from 'vue'
 
 // Auxiliaries
 import bus from '@/auxiliary/bus'
+import togvue from '@/libraries/togVue'
 
 // Components
 import Menu_Bar from '../components/Menu_Bar.vue'
@@ -36,9 +37,7 @@ export default defineComponent({
 		Menu_Bar
 	},
     created() {
-        setTimeout(() => {
-            bus.emit('debug display', '2Rules_Page created')
-        }, 1000)
+        togvue.log('On rules page')
     },
 })
 </script>

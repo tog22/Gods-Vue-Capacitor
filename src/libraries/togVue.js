@@ -48,7 +48,7 @@ var togvue = {
     {
         setTimeout(function(){
             bus.emit('debug display', message)
-        }, 2000);
+        }, 1000);
     }
 }
 
