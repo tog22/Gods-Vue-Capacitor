@@ -17,13 +17,24 @@
 			<div id="bz_content">
 				<div id="info_bar">
 					<div id="item_flex_container">
-						<div class="s_item piece" @click="end_turn">
+						<div 
+                            class="s_item piece" 
+                            :class="has_piece_moved"
+                            @click="end_turn"
+                        >
 							♟
 						</div>
-						<div class="s_item inspiration moved" @click="end_turn">
+						<div 
+                            class="s_item inspiration" 
+                            :class="has_inspiration_moved"
+                            @click="toggle_inspiration_lock"
+                        >
 							⚡️
-							<div class="s_badge">
-								🔓
+							<div class="s_badge" v-if="inspiration_locked">
+								🔒
+							</div>
+							<div class="s_badge" v-else>
+								🔑
 							</div>
 						</div>
 						<div class="current_player s_item">
@@ -233,8 +244,12 @@ export default {
 
 					// End turn/switch to the other player if appropriate
 
-					if (this.piece_has_moved && this.inspiration_has_moved) {
-						this.end_turn();
+					if (this.piece_has_moved) {
+						if (!this.inspiration_locked) {
+                            this.end_turn();
+                        } else if (this.inspiration_has_moved) {
+                            this.end_turn();
+                        }
 					}
 
 				} else {
@@ -812,6 +827,11 @@ export default {
 
 		},
 
+        toggle_inspiration_lock() {
+            this.inspiration_locked = !this.inspiration_locked
+
+        },
+
 		end_turn(atclick_var = null, by_opponent = false) {
 
 			switch (this.current_player) {
@@ -977,6 +997,22 @@ export default {
 			}
 		},
 
+        has_piece_moved: function() {
+            if (this.piece_has_moved) {
+                return 'piece_has_moved'
+            } else {
+                return 'piece_has_not_moved'
+            }
+        },
+
+        has_inspiration_moved: function() {
+            if (this.inspiration_has_moved) {
+                return 'inspiration_has_moved'
+            } else {
+                return 'inspiration_has_not_moved'
+            }
+        },
+
 		which_screen: function() {
 			if (this.winner) {
 				return 'won'
@@ -1024,6 +1060,7 @@ export default {
             current_player: 		current_player,
             piece_has_moved: 		false,
             inspiration_has_moved: 	false,
+            inspiration_locked: 	false,
             selected_row: 			null,
             selected_col: 			null,
             row_delta: 				null,

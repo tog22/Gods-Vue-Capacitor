@@ -494,8 +494,159 @@ from SCSS
 
 /* !THE INFO BAR
 /**************************/
-#bottom_zone{background:#a7c4e0;display:flex;flex-grow:1;justify-content:center}#bz_content{background:#7c98b3;display:flex;flex-grow:1;width:100%}@media screen and (max-width:767px) and (hover:none){#bz_content{flex-grow:unset;justify-content:center;max-height:85px}#bottom_zone{display:flex}}#info_bar{align-items:center;background:#7c98b3;border-radius:12px;display:flex;margin-top:1em;padding:20px;text-align:center;width:100%}@media screen and (max-width:767px) and (hover:none){#info_bar{margin-top:0;padding:0}}.mob_style #info_bar{margin-top:0;padding:0}#info_bar #item_flex_container{display:flex;margin:0 auto}#info_bar .s_item{align-content:center;background-color:#a7c4e0;border-radius:6px;color:#fff;display:inline-block;display:flex;flex-direction:column;font-size:.875rem;height:40px;justify-content:center;margin-right:15px;padding:3px 6px;position:relative}#info_bar .s_item .s_badge{bottom:3px;font-size:.571em;position:absolute;right:3px}#info_bar .s_item.inspiration{font-size:.72em}#info_bar .inspiration.s_item,#info_bar .piece.s_item{width:25px}#info_bar .s_item .s_text{font-size:12px;font-weight:900;text-transform:uppercase}#info_bar .s_item.s_text_only{padding-left:18px;padding-right:18px}#info_bar .s_item:last-child{margin-right:0}#info_bar .current_player.s_item{padding:3px 8px}.cpi.baboon{font-size:120%;margin-right:2px}.cpi.hippo{display:inline-block;font-size:170%;margin-right:2px;padding-bottom:5px}.cpi.blue,.cpi.red{display:inline-block;height:25px;position:relative;top:2px;width:25px}.cpi.red{background-color:#971201}.cpi.blue{background-color:#061d98}.oi{height:43px;position:relative;top:2px}.player_pulse{animation:player_pulse 4s ease-in-out 0s 1;animation-iteration-count:100}
 
+#bottom_zone {
+	background: #a7c4e0;
+	display: flex;
+	flex-grow: 1;
+	justify-content: center
+}
+
+#bz_content {
+	background: #7c98b3;
+	display: flex;
+	flex-grow: 1;
+	width: 100%
+}
+
+@media screen and (max-width:767px) and (hover:none) {
+	#bz_content {
+		flex-grow: unset;
+		justify-content: center;
+		max-height: 85px
+	}
+
+	#bottom_zone {
+		display: flex
+	}
+}
+
+#info_bar {
+	align-items: center;
+	background: #7c98b3;
+	border-radius: 12px;
+	display: flex;
+	margin-top: 1em;
+	padding: 20px;
+	text-align: center;
+	width: 100%
+}
+
+@media screen and (max-width:767px) and (hover:none) {
+	#info_bar {
+		margin-top: 0;
+		padding: 0
+	}
+}
+
+.mob_style #info_bar {
+	margin-top: 0;
+	padding: 0
+}
+
+#info_bar #item_flex_container {
+	display: flex;
+	margin: 0 auto
+}
+
+#info_bar .s_item {
+	align-content: center;
+	background-color: #a7c4e0;
+	border-radius: 6px;
+	color: #fff;
+	display: inline-block;
+	display: flex;
+	flex-direction: column;
+	font-size: .875rem;
+	height: 40px;
+	justify-content: center;
+	margin-right: 15px;
+	padding: 3px 6px;
+	position: relative
+}
+
+#info_bar .s_item .s_badge {
+	bottom: 3px;
+	font-size: .571em;
+	position: absolute;
+	right: 3px
+}
+
+#info_bar .s_item.piece_has_moved {
+    background-color: rgb(105,	127, 191)
+}
+
+#info_bar .s_item.inspiration_has_moved {
+    background-color: rgb(105,	127, 191)
+}
+
+#info_bar .s_item.inspiration {
+	font-size: 0.85em
+}
+
+#info_bar .inspiration.s_item,
+#info_bar .piece.s_item {
+	width: 25px
+}
+
+#info_bar .s_item .s_text {
+	font-size: 12px;
+	font-weight: 900;
+	text-transform: uppercase
+}
+
+#info_bar .s_item.s_text_only {
+	padding-left: 18px;
+	padding-right: 18px
+}
+
+#info_bar .s_item:last-child {
+	margin-right: 0
+}
+
+#info_bar .current_player.s_item {
+	padding: 3px 8px
+}
+
+.cpi.baboon {
+	font-size: 120%;
+	margin-right: 2px
+}
+
+.cpi.hippo {
+	display: inline-block;
+	font-size: 170%;
+	margin-right: 2px;
+	padding-bottom: 5px
+}
+
+.cpi.blue,
+.cpi.red {
+	display: inline-block;
+	height: 25px;
+	position: relative;
+	top: 2px;
+	width: 25px
+}
+
+.cpi.red {
+	background-color: #971201
+}
+
+.cpi.blue {
+	background-color: #061d98
+}
+
+.oi {
+	height: 43px;
+	position: relative;
+	top: 2px
+}
+
+.player_pulse {
+	animation: player_pulse 4s ease-in-out 0s 1;
+	animation-iteration-count: 100
+}
 /* !NEW TURN PULSE STYLES (PARTWAY DONE)
 
 GameWorld.vue changes are at https://github.com/tog22/gods_vue/commit/f14faff612692f26938461902f6907023e335d8f
