@@ -19,6 +19,8 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 
 	margin: 0px !important;
+
+    /* min-height: 100%; /* was in quasar base styles, prob not needed */
 }
 
 
@@ -162,6 +164,7 @@ body {
 .board {
 	border-collapse: collapse;
 	cursor: pointer;
+    width: 100%;
 }
 
 .board td {

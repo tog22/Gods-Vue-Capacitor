@@ -18,6 +18,7 @@ import {
 	Token,
 } from '@capacitor/push-notifications';
 import firebase_messaging from '@/auxiliary/firebase'
+import { NavigationBar } from '@hugotomazi/capacitor-navigation-bar'
 
 
 // Auxiliaries
@@ -30,6 +31,8 @@ import togvue from '@/libraries/togVue'
 /*********************
 **   *️⃣ MAIN CODE   **
 *********************/
+
+NavigationBar.hide()
 
 export default defineComponent({
 	name: 'App',

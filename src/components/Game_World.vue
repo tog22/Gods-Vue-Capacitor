@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="game_world">
 		<table class="board">
 			<tr v-for="(row, row_index) in sotw" :key="'r'+row_index">
 				<Square

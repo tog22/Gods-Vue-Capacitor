@@ -17,6 +17,7 @@
     "@capacitor/core": "^4.7.1",
     "@capacitor/ios": "^4.7.1",
     "@capacitor/push-notifications": "^4.1.2",
+    "@hugotomazi/capacitor-navigation-bar": "^2.0.1",
     "core-js": "^3.6.5",
     "firebase": "^8.10.1",
     "mitt": "^3.0.0",
