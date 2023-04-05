@@ -1,5 +1,5 @@
 <template>
-    <div class="debug_display">
+    <div class="debug_display" v-if="show">
         <div id="container_for_copy_to_clipboard">
             <div id="copy_to_clipboard" @click="copyToClipboard">
                 📋
@@ -34,6 +34,10 @@ export default {
         bus.on('debug display', (message) => {
             this.messages.push(message)
         })
+
+        bus.on('toggle debug display', () => {
+            this.show = this.show ? false : true
+        })
     },
     methods: {
         copyToClipboard() {
@@ -44,7 +48,8 @@ export default {
     },
     data() {
         return {
-            messages: []
+            messages:   [],
+            show:       false
         }
     },
 }

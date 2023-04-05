@@ -43,7 +43,7 @@ export default {
     },
     methods: {
         dev_button() {
-            bus.emit('debug display', 'dev button clicked')
+            bus.emit('toggle debug display', null)
         }
     }
 }
