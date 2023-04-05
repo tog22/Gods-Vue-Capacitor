@@ -2,7 +2,7 @@
 	<div class="game_world_root mob_style dev">
 		<div id="menu" class="screen">
 			<h1 class="page_title">
-				Path of the Gods
+				Gods
 			</h1>
 			<div id="menu_buttons">
 				<router-link 

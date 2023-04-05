@@ -7,7 +7,7 @@ const routes = [
 		name: 'Home',
 		component: Home,
 		meta: {
-			title: 'Path of the Gods | A richly strategic board game'
+			title: 'Gods'
 		}
 	},
 	{
@@ -18,7 +18,7 @@ const routes = [
 		// which is lazy-loaded when the route is visited.
 		component: () => import(/* webpackChunkName: "rules" */ '../views/Rules.vue'),
 		meta: {
-			title: 'Rules for Path of the Gods'
+			title: 'Rules for Gods'
 		}
 	},
 	{
@@ -26,7 +26,7 @@ const routes = [
 		name: 'Pass & Play',
 		component: () => import(/* webpackChunkName: "play" */ '../views/Pass_and_Play.vue'),
 		meta: {
-			title: 'Path of the Gods'
+			title: 'Gods'
 		}
 	},
 	{
@@ -34,7 +34,7 @@ const routes = [
 		name: 'Online Games',
 		component: () => import(/* webpackChunkName: "online" */ '../views/Online_Games.vue'),
 		meta: {
-			title: 'Path of the Gods'
+			title: 'Gods'
 		}
 	}
 ]
