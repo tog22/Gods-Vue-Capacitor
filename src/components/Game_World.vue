@@ -80,6 +80,37 @@ export default {
 			type: Object
 		}
 	},
+
+    created() {
+
+        /*******************
+        **  BUS HANDLERS  **
+        *******************/
+
+        bus.on('move', (move) => {
+
+            this.on_fcm_update_received(move)
+
+        });
+
+        bus.on('update_received', (update) => {
+
+            this.on_update_received(update)
+
+        });
+
+        bus.on('log_sotw', () => {
+
+            this.on_log_sotw()
+
+        });
+
+        bus.on('change_gameworld_data', (data) => {
+            if ('online_game' in data) {
+                this.online_game = data.online_game
+            }
+        })
+    },
     
 	methods: {
 		/***************************
