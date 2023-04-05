@@ -1,5 +1,8 @@
 <template>
     <div class="debug_display">
+        <div id="copy_to_clipboard" @click="copyToClipboard">
+            📋
+        </div>
         <div v-for="(message, index) in messages" :key="'i'+index">
             {{ message }}
         </div>
@@ -12,6 +15,10 @@
 **   ⤵️ IMPORTS   **
 *******************/
 
+// External libraries
+import { Clipboard } from '@capacitor/clipboard';
+
+// Auxiliaries
 import bus from '@/auxiliary/bus'
 
 
@@ -26,11 +33,16 @@ export default {
             this.messages.push(message)
         })
     },
+    methods: {
+        copyToClipboard() {
+            Clipboard.write({
+                string: this.messages.join('\n')
+            })
+        }
+    },
     data() {
         return {
-            messages: [
-                'Debug Display'
-            ]
+            messages: []
         }
     },
 }
@@ -43,6 +55,13 @@ export default {
     height: 2.8em;
     font-size: 0.8em;
     background: #7c98b3;
+    position: relative;
+}
+
+#copy_to_clipboard {
+    position: absolute;
+    top: 2px;
+    right: 4px;
 }
 
 </style>

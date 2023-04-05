@@ -3,9 +3,10 @@
 *******************/
 
 // Libraries
-import { createApp } from 'vue'
+import { createApp, provide } from 'vue'
 import App from './App.vue'
 import router from './router'
+import store from './store/Store'
 
 /*****************
 **				**
@@ -34,4 +35,5 @@ router.beforeEach((to, from, next) => {
 **				**
 *****************/
 
-createApp(App).use(router).mount('#app')
+const app = createApp(App).use(router).mount('#app')
+// provide('mainjsstore', store.state) // based on vue doco, but doesn't work

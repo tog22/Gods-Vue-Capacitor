@@ -10,6 +10,9 @@
 **   ⤵️ IMPORTS   **
 *******************/
 
+// External libraries
+import { inject } from 'vue'
+
 // Auxiliaries
 import bus from '@/auxiliary/bus'
 
@@ -20,6 +23,15 @@ import bus from '@/auxiliary/bus'
 *********************/
 
 export default {
-    name: 'Game_World'
+    name: 'Game_World',
+    data() {
+        
+        const store_parent = inject("store")
+
+        return {
+            store: store_parent.state,
+        }
+        
+    },
 }
 </script>
