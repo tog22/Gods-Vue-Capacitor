@@ -1,7 +1,9 @@
 <template>
     <div class="debug_display">
-        <div id="copy_to_clipboard" @click="copyToClipboard">
-            📋
+        <div id="container_for_copy_to_clipboard">
+            <div id="copy_to_clipboard" @click="copyToClipboard">
+                📋
+            </div>
         </div>
         <div v-for="(message, index) in messages" :key="'i'+index">
             {{ message }}
@@ -60,6 +62,11 @@ export default {
     height: 2.8em;
     font-size: 0.8em;
     background: #7c98b3;
+    position: absolute;
+    top: 58px;
+}
+
+#container_for_copy_to_clipboard {
     position: relative;
 }
 
