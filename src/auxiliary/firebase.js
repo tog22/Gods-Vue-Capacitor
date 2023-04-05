@@ -6,6 +6,10 @@
 import firebase from 'firebase/app'
 import 'firebase/firebase-messaging'
 
+import { Capacitor } from '@capacitor/core';
+
+let messaging_object = null
+
 const firebaseConfig = {
   apiKey: "AIzaSyBGhSRGXLRM1m-nNMFNuJnSKu5AX--6vb0",
   authDomain: "godsgamefbase.firebaseapp.com",
@@ -15,5 +19,11 @@ const firebaseConfig = {
   appId: "1:306649763697:web:228785d43cabe34913b0d0"
 };
 
-firebase.initializeApp(firebaseConfig);
-export default firebase.messaging()
+if (Capacitor.isNativePlatform()) {
+    messaging_object = false
+} else {
+    firebase.initializeApp(firebaseConfig);
+    messaging_object = firebase.messaging()
+}
+
+export default messaging_object

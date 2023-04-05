@@ -24,6 +24,15 @@ import bus from '@/auxiliary/bus'
 
 export default {
     name: 'Game_World',
+	props: {
+		online_screen: {
+			required: true,
+			type: Boolean
+		},
+		online: {
+			type: Object
+		}
+	},
     data() {
         
         const store_parent = inject("store")
@@ -31,7 +40,7 @@ export default {
         return {
             store: store_parent.state,
         }
-        
+
     },
 }
 </script>

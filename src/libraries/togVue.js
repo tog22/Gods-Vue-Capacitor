@@ -51,3 +51,5 @@ var togvue = {
         }, 2000);
     }
 }
+
+export default togvue
