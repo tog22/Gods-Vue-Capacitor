@@ -158,7 +158,7 @@ export default {
 
 				if (clicked.side !== this.current_player) {
 					alert ("It's not this player's turn");
-					// ↑ Ideally make the turn indicator flash red instead
+					// ↑ todo: Ideally make the turn indicator flash red instead
 					return;
 				}
 
@@ -587,9 +587,11 @@ export default {
 				return false
 			}
 
+			/* Old rule:
 			if (intermediate_piece.divinely_inspired) {
 				return false;
 			}
+			*/
 
 			switch (this.current_player) {
 
@@ -644,9 +646,11 @@ export default {
 
 			intermediate_piece = this.sotw[intermediate_row][intermediate_col]
 			
+			/* Old rule:
 			if (intermediate_piece.divinely_inspired) {
 				return false;
 			}
+			*/
 
 			switch (this.current_player) {
 
@@ -740,7 +744,7 @@ export default {
 			for (var square of squares_to_check_for_trap) {
 				if (this.sotw[square.adj_row][square.adj_col].side === opponent) {
 
-					if (this.sotw[square.next_row][square.next_col].side === self && !this.sotw[square.next_row][square.next_col].divinely_inspired) {
+					if (this.sotw[square.next_row][square.next_col].side === self /* Old rule: && !this.sotw[square.next_row][square.next_col].divinely_inspired*/) {
 
 						this.sotw[square.adj_row][square.adj_col].occupant = null
 						this.sotw[square.adj_row][square.adj_col].side = null

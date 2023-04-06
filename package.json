@@ -62,7 +62,8 @@
           "x-invalid-end-tag": false
         }
       ],
-      "no-trailing-spaces": 0
+      "no-trailing-spaces": 0,
+      "no-debugger": 0
     }
   },
   "browserslist": [
