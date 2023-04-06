@@ -1,11 +1,38 @@
 <template>
 	<div class="game_world_root mob_style dev">
-		<div id="selecting_online" class="screen">
+		<div id="rules_page" class="screen">
 			<Menu_Bar />
-			<div id="inner_selecting_online">
-				<h2>
-					Rules
-				</h2>
+			<div id="rules_content_zone" class="flx">
+				<div id="rule_images" class="flx">
+					<img :src="page_url" alt="Rules" />
+				</div>
+				<!-- <div class="pager">
+					<div class="medium_button" @click="next_page">
+						Next page
+					</div>
+					<div class="page_button" @click="prev_page">
+						⇦
+					</div>
+					<div class="page_button" @click="next_page">
+						⇨
+					</div>
+				</div> -->
+				<div id="bottom_zone">
+					<div id="bz_content">
+						<div id="info_bar">
+							<div id="item_flex_container">
+								<div 
+									class="s_item large_button"
+									@click="next_page"
+								>
+									<div class="s_text">
+										{{button_text}}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -36,8 +63,51 @@ export default defineComponent({
 	components: {
 		Menu_Bar
 	},
-    created() {
-        togvue.log('On rules page')
-    },
+    methods: {
+		next_page() {
+			const last_page = 16
+			if (this.page < (last_page - 1)) {
+				this.page += 1
+				this.button_text = 'Next page'
+			} else if (this.page == (last_page - 1)) {
+				this.page += 1
+				this.button_text = 'First page'
+			} else {
+				this.page = 1
+				this.button_text = 'Next page'
+			}
+			this.page_url = '/images/rules/' + this.page + '.png'
+		},
+	},
+	data() {
+		return {
+			page: 			1,
+			page_url: 		'/images/rules/1.png',
+			button_text:	'Next page',
+		}
+	},
 })
 </script>
+
+<style>
+
+.pager {
+	text-align: center;
+}
+
+.medium_button {
+	
+	display: inline-block;
+	background-color: #7c98b3;
+    color: #fff;
+	font-weight: bold;
+	text-transform: uppercase;
+
+    border-radius: 6px;
+
+    font-size: 1.4rem;
+    height: 40px;
+    padding: 3px 6px;
+}
+
+</style>

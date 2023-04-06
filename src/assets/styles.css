@@ -329,6 +329,12 @@ h1 {
 /* !SCREENS IN GENERAL
 /**************************/
 
+.flx { /* For elements needing to fill the vertical space */
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+}
+
 #menu,
 #selecting_online,
 #end_game {
@@ -349,6 +355,29 @@ h1.page_title {
 	color: #383838;
 	text-transform: uppercase;
 }
+
+
+/**************************/
+/* !RULES
+/**************************/
+
+#rules_content_zone {
+	flex-grow: 1;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+#rule_images {
+	text-align: center;
+}
+
+#rule_images img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
 
 /**************************/
 /* !ONLINE MENU
@@ -497,6 +526,10 @@ from SCSS
 	justify-content: center
 }
 
+#rules_page #bottom_zone {
+	min-height: 80px;
+}
+
 #bz_content {
 	background: #7c98b3;
 	display: flex;
@@ -558,6 +591,16 @@ from SCSS
 	margin-right: 15px;
 	padding: 3px 6px;
 	position: relative
+}
+
+#info_bar .s_item.large_button {
+	padding: 3px 16px;
+}
+
+#info_bar .s_item.large_button,
+#info_bar .s_item.large_button .s_text {
+	font-size: 1em;
+	letter-spacing: 0.04em;
 }
 
 #info_bar .s_item .s_badge {
