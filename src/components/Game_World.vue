@@ -1074,7 +1074,14 @@ export default {
     },
 }
 
-function lo(to_log) {
-	console.log(to_log)
+
+/*******************
+**	🛠 FUNCTIONS  **
+*******************/
+
+
+function lo(to_log) { 
+	console.log(to_log) 
 }
+
 </script>

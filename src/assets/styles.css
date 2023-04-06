@@ -342,12 +342,7 @@ h1 {
 	padding: 20px 5% 80px;
 }
 
-
-/**************************/
-/* !MENU SCREEN
-/**************************/
-
-#menu h1.page_title {
+h1.page_title {
 	font-size: 42px;
 	font-weight: bold;
 	margin-bottom: 18px;

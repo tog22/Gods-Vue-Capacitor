@@ -1,6 +1,6 @@
 import { reactive, watch } from "vue";
 
-const STATE_NAME = "gods_alpha_datastore";
+const STATE_NAME = "gods_0.2_datastore";
 
 let store_parent // What'll get exported
 let load_saved_state = false
@@ -8,7 +8,23 @@ let load_saved_state = false
 const default_state = {
         logged_in: 	        true,
         user:			    "Tomek",
-        token:		        'unset'
+        token:		        'unset',
+		online: {
+			user: 'Tomek', // Tomek/logging_in/etc
+			userpass: 'pass',
+			game_id: 22,
+			game_pass: 10559,
+			side: 1,
+			// game_id: null,
+			// game_pass: null,
+			// side: null,
+			subscreen: 'user menu', // default = 'user menu'
+			error: '',
+			login_error: null,
+			signup_error: null,
+			has_current_games: true, // todo, low: set
+			games: [] // gets set in continue_online()
+		}
 }
 
 const getdefault_state = () => {

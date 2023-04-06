@@ -32,7 +32,23 @@ const routes = [
 	{
 		path: '/online',
 		name: 'Online Games',
-		component: () => import(/* webpackChunkName: "online" */ '../views/Online_Games.vue'),
+		component: () => import(/* webpackChunkName: "online" */ '../views/Online_Games_Menu.vue'),
+		meta: {
+			title: 'Gods'
+		}
+	},
+	{
+		path: '/online/play',
+		name: 'Online Game',
+		component: () => import(/* webpackChunkName: "online" */ '../views/Online_Game.vue'),
+		meta: {
+			title: 'Gods'
+		}
+	},
+	{
+		path: '/p2',
+		name: 'Online Game - player 2',
+		component: () => import(/* webpackChunkName: "online" */ '../views/Online_Other_Player.vue'),
 		meta: {
 			title: 'Gods'
 		}
