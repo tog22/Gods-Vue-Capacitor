@@ -370,12 +370,13 @@ h1.page_title {
 }
 
 #rule_images {
-	text-align: center;
+	justify-content: center;
 }
 
 #rule_images img {
-	max-width: 100%;
-	max-height: 100%;
+	max-width: 95%;
+	max-height: 79vh;
+	margin: 0 auto;
 }
 
 
@@ -527,7 +528,8 @@ from SCSS
 }
 
 #rules_page #bottom_zone {
-	min-height: 80px;
+	min-height: 11vh;
+	flex-grow: unset;
 }
 
 #bz_content {

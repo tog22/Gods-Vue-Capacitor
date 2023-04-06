@@ -4,7 +4,7 @@
 			<Menu_Bar />
 			<div id="rules_content_zone" class="flx">
 				<div id="rule_images" class="flx">
-					<img :src="page_url" alt="Rules" />
+					<img :src="page_url" @click="next_page" alt="Board game rules" />
 				</div>
 				<!-- <div class="pager">
 					<div class="medium_button" @click="next_page">
