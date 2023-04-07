@@ -289,14 +289,17 @@ export default {
 					if (this.is_adjacent_diagonally()) {
 						return true;
 					}
-					if (this.is_hop(from_row, from_col, to_row, to_col)) {
+					if (this.is_straight_hop(from_row, from_col, to_row, to_col)) {
+						return true;
+					}
+					if (this.is_diagonal_hop(from_row, from_col, to_row, to_col)) {
 						return true;
 					}
 				} else if (selected.occupant === 'angel') {
 					if (this.is_along_clear_straight_line(from_row, from_col, to_row, to_col)) {
 						return true;
 					}
-					if (this.is_hop(from_row, from_col, to_row, to_col)) {
+					if (this.is_angel_hop(from_row, from_col, to_row, to_col)) {
 						return true;
 					}
 				}
@@ -668,6 +671,84 @@ export default {
 					// if (is_along_column && col_direction === 'down') {
 					// 	return false
 					// }
+					if (intermediate_piece.side === 1) {
+						return true
+					} else {
+						return false
+					}
+			}
+
+		},
+
+		is_angel_hop(from_row, from_col, to_row, to_col) {
+
+			// Check it's a straight line
+			if (this.row_delta > 0 && this.col_delta > 0) {
+				return false
+			}
+
+			var intermediate_piece
+			var is_along_column
+			var col_direction
+
+			if (this.row_delta > 0) {
+				
+				// Find the second-last ('intermediate') square, to check if it's occupied
+
+				let intermediate_row
+				if (to_row > from_row) {
+					intermediate_row = to_row - 1;
+				} else {
+					intermediate_row = to_row + 1;
+				}
+				intermediate_piece = this.sotw[intermediate_row][from_col]
+
+				// Check the path is clear up to that second-last ('intermediate') square
+
+				if (!this.is_along_clear_straight_line(from_row, from_col, intermediate_row, to_col)) {
+					return false
+				}
+
+			} else if (this.col_delta > 0) {
+				
+				// Find the second-last ('intermediate') square, to check if it's occupied
+				
+				let intermediate_col
+				if (to_col > from_col) {
+					intermediate_col = to_col - 1;
+					col_direction = 'down'
+				} else {
+					intermediate_col = from_col - 1;
+					col_direction = 'up'
+				}
+				intermediate_piece = this.sotw[from_row][intermediate_col]
+
+				// Check the path is clear up to that second-last ('intermediate') square
+
+				if (!this.is_along_clear_straight_line(from_row, from_col, to_row, intermediate_col)) {
+					return false
+				}
+
+			} else {
+				return false
+			}
+
+			/* Old rule:
+			if (intermediate_piece.divinely_inspired) {
+				return false;
+			}
+			*/
+
+			switch (this.current_player) {
+
+				case 1:
+					if (intermediate_piece.side === 2) {
+						return true
+					} else {
+						return false
+					}
+				case 2:
+				default:
 					if (intermediate_piece.side === 1) {
 						return true
 					} else {
