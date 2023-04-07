@@ -185,107 +185,80 @@ export default defineComponent({
 
 	methods: {
 		
-		to_login() {
-			this.subscreen = 'Login'
+		
+		new_online() {
+			this.store.online.subscreen = 'select opponent'
 		},
+		select_opponent() {
 
-		to_signup() {
-			this.subscreen = 'Signup'
-		},
-
-		log_in_button() {
-			
-			this.error = false // reset
-			
-			let user = document.getElementById('login_user').value
-			let pw = document.getElementById('login_pass').value
-			
+			var opp = document.getElementById('newg_opponent').value
 			var server_request = new XMLHttpRequest()
-			
-			let get_url = 'http://godcloud.philosofiles.com/?action=login&username='+user+'&pw='+pw
-			//lo(get_url)
-			
+
+			let get_url = 'http://godcloud.philosofiles.com/?action=find_user&user='+opp
+			lo(get_url)
+
 			server_request.open("GET", get_url, false)
 			server_request.send()
-			
+
 			const response = JSON.parse(server_request.responseText)
-			lo(response)
-			
-			if (response.result === 'success') {
-				
-				this.store.online.user = user
-				this.store.user = user
-				this.store.online.userpass = pw
-				this.report_token(user, this.store.token)
-				
-				this.subscreen = 'Initial menu'
-				
-			} else if (response.result === "un or pw wrong") {
-				
-				this.error = 'Incorrect login details'
-				
-			} else {
-				
-				this.error = 'Error logging in'
-				
-			}
-			
-		},
-		sign_up_button() {
-			
-			this.error = false // reset
-			
-			let user = document.getElementById('signup_user').value
-			let pw = document.getElementById('signup_pass').value
-			
-			var server_request = new XMLHttpRequest()
-			
-			let get_url = 'http://godcloud.philosofiles.com/?action=signup&username='+user+'&pw='+pw
-			//lo(get_url)
-			
-			server_request.open("GET", get_url, false)
-			server_request.send()
-			
-			const response = JSON.parse(server_request.responseText)
-			lo(response)
-			
-			if (response.result === 'success') {
-				
-				this.store.online.user = user
-				this.store.user = user
-				this.report_token(user, this.store.token)
-				
-				this.subscreen = 'Initial menu'
-				
-			} else if (response.result === "sql error") {
-				if (response.error_number === '1062') {
-					this.error='Username already taken'
+
+			if (response.result === 'failure') {
+				this.store.online.error = 'Opponent not found'
+			} else if (response.result === 'success') {
+
+				let pw = Math.floor(Math.random() * 32000)
+
+				server_request = new XMLHttpRequest()
+				get_url = 'http://godcloud.philosofiles.com/?action=create&pw='+pw+'&p1='+this.store.online.user+'&p2='+opp
+
+				server_request.open("GET", get_url, false)
+				server_request.send()
+
+				const response = JSON.parse(server_request.responseText)
+
+				if (response.result === 'success') {
+					this.game_type = 'online'
+					this.which_screen =  'show_online'
+					this.store.online.side =  1
+					this.store.online.game_id = response.game_id
+					this.store.online.game_pass = pw
 				} else {
-					this.error='Unknown SQL error'
+					this.store.online.error = 'Failed to create game'
 				}
+
 			} else {
-				// todo: general error message
-				this.error='Unknown non-SQL error'
+				this.store.online.error = 'Unknown error'
 			}
-			
+
 		},
-		report_token(user, token) {
-			var server_request = new XMLHttpRequest()
-			
-			let get_url = 'http://godcloud.philosofiles.com/?action=report_token&token='+this.store.token+'&user='+user;
-			lo(get_url);
-			
-			server_request.open("GET", get_url, false) // false = synchronous
+		continue_online() {
+
+			let server_request = new XMLHttpRequest()
+			let get_url = 'https://godcloud.philosofiles.com/?action=list_games&username='+this.store.online.user+'&userpass='+this.store.online.userpass
+			lo(get_url)
+
+			server_request.open("GET", get_url, false)
 			server_request.send()
+
+			const response = JSON.parse(server_request.responseText)
+
+			if (response.result === 'failure' || !response.games_found) {
+				alert("You don't have any active games")
+				return
+				// todo: change
+			}
+
+			this.store.online.games = response.games
+			this.store.online.subscreen = 'continue online'
+
 		},
-		online_games() {
-			this.which_screen =  'show_selecting_online'
-			this.store.online.subscreen = 'user menu' // is this right? was 'login or signup'
+		load_game(id, pw, side) {
+			this.game_type = 'online'
+			this.which_screen =  'show_online'
+			this.store.online.game_id = id
+			this.store.online.game_pass = pw
+			this.store.online.side =  side
 		},
-		logout() {
-			this.store.online.user = ''
-			// todo - remove token from db
-		}
 	},
 
 	data() {

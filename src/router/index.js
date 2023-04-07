@@ -37,14 +37,30 @@ const routes = [
 			title: 'Gods'
 		}
 	},
-	{
-		path: '/online/play',
-		name: 'Online Game',
-		component: () => import(/* webpackChunkName: "online" */ '../views/Online_Game.vue'),
-		meta: {
-			title: 'Gods'
-		}
-	},
+	// {
+	// 	path: '/online_play',
+	// 	name: 'Online Game',
+	// 	component: () => import(/* webpackChunkName: "online" */ '../views/Online_Game.vue'),
+	// 	meta: {
+	// 		title: 'Gods'
+	// 	}
+	// },
+	// {
+	// 	path: '/online_load',
+	// 	name: 'Online Games',
+	// 	component: () => import(/* webpackChunkName: "online" */ '../views/Load_Game.vue'),
+	// 	meta: {
+	// 		title: 'Gods'
+	// 	}
+	// },
+	// {
+	// 	path: '/online_new',
+	// 	name: 'Online Games',
+	// 	component: () => import(/* webpackChunkName: "online" */ '../views/New_Online_Game.vue'),
+	// 	meta: {
+	// 		title: 'Gods'
+	// 	}
+	// },
 	{
 		path: '/p2',
 		name: 'Online Game - player 2',
