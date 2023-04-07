@@ -401,7 +401,7 @@ h1.page_title {
 	flex-direction: column;
 	justify-content: center;
 
-	padding: 20px 5% 80px;
+	padding: 20px 5% 60px;
 }
 
 .form {
@@ -413,7 +413,7 @@ h1.page_title {
 	text-align: left;
 	text-transform: uppercase;
 	margin-bottom: 0.4em;
-	padding-left: 6px;
+	padding-left: 1px;
 }
 .form .s_input input[type="text"],
 .form .s_input input[type="password"] {
@@ -429,6 +429,17 @@ h1.page_title {
 	width: 100%;
 	text-transform: uppercase;
 }
+
+.form_error_container {
+}
+
+.form_error {
+	color: #971201;
+    font-weight: bold;
+    margin-top: 1.5em;
+}
+
+
 
 /**************************/
 /* !BUTTONS
