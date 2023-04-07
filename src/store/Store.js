@@ -10,20 +10,20 @@ const default_state = {
         user:			    "Tomek",
         token:		        'unset',
 		online: {
-			user: 'Tomek', // Tomek/logging_in/etc
-			userpass: 'pass',
-			game_id: 22,
-			game_pass: 10559,
-			side: 1,
+			user: 				'Tomek', // Tomek/logging_in/etc
+			userpass: 			'pass',
+			game_id: 			22,
+			game_pass: 			10559,
+			side: 				1,
 			// game_id: null,
 			// game_pass: null,
 			// side: null,
-			subscreen: 'user menu', // default = 'user menu'
-			error: '',
-			login_error: null,
-			signup_error: null,
-			has_current_games: true, // todo, low: set
-			games: [] // gets set in continue_online()
+			subscreen: 			'user menu', // default = 'user menu'
+			error: 				null,
+			login_error: 		null,
+			signup_error: 		null,
+			has_current_games: 	true, // todo, low: set
+			games: 				[] // gets set in continue_online()
 		}
 }
 
