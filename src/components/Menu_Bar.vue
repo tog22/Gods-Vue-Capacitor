@@ -1,7 +1,7 @@
 <template>
 <div class="menu_bar">
 	<div class="s_left">
-		<span class="back" @click="$router.back()">
+		<span class="back s_button" @click="$router.back()">
 			⬅️
 		</span>
 	</div>
@@ -11,9 +11,16 @@
 		</h1>
 	</div>
 	<div class="s_right">
-        <span class="dev_button" @click="dev_button()">
-            #️⃣
-        </span>
+        <span 
+			v-if="$route.name == 'Pass & Play'" 
+			@click="restart"
+			class="s_button"
+		>
+			🔄
+		</span>
+		<!-- <span class="dev_button" @click="dev_button()">
+            #️⃣ 
+        </span> -->
 	</div>
 </div>
 <Debug_Display/>
@@ -42,7 +49,11 @@ export default {
         Debug_Display 
     },
     methods: {
-        dev_button() {
+        restart() {
+			bus.emit('restart game', null)
+			alert('Restarting game not implemented yet')
+		},
+		dev_button() {
             bus.emit('toggle debug display', null)
         }
     }

@@ -214,7 +214,6 @@ export default defineComponent({
 			if (response.result === 'success') {
 				
 				this.store.online.user = user
-				this.store.user = user
 				this.store.online.userpass = pw
 				this.report_token(user, this.store.token)
 				
@@ -252,7 +251,6 @@ export default defineComponent({
 			if (response.result === 'success') {
 				
 				this.store.online.user = user
-				this.store.user = user
 				this.report_token(user, this.store.token)
 				
 				this.subscreen = 'Initial menu'
@@ -283,7 +281,7 @@ export default defineComponent({
 			this.store.online.subscreen = 'user menu' // is this right? was 'login or signup'
 		},
 		logout() {
-			this.store.online.user = ''
+			this.store.online.user = null
 			// todo - remove token from db
 		}
 	},

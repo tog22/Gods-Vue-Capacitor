@@ -950,7 +950,7 @@ export default {
 
 			var server_request = new XMLHttpRequest()
 
-			let get_url = 'http://godcloud.philosofiles.com/?action=update&game='+this.store.online.game_id+'&pw='+this.store.online.game_pass+'&turn='+this.turn+'&current_player='+this.current_player+'&sending_player_name='+this.store.user+'&winner='+this.winner+'&win_type='+this.win_type+'&sotw='+JSON.stringify(this.sotw);
+			let get_url = 'http://godcloud.philosofiles.com/?action=update&game='+this.store.online.game_id+'&pw='+this.store.online.game_pass+'&turn='+this.turn+'&current_player='+this.current_player+'&sending_player_name='+this.store.online.user+'&winner='+this.winner+'&win_type='+this.win_type+'&sotw='+JSON.stringify(this.sotw);
 
 			server_request.open("GET", get_url, false) // false = synchronous
 			server_request.send()

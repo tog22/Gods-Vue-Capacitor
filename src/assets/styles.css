@@ -103,17 +103,17 @@ body {
 	margin: initial
 }
 
-.show_menu #menu,
+.show_menu #home_menu,
 .show_selecting_online #selecting_online,
 .show_pnp #pnp_game,
 .show_end #end_game {
 	display: flex;
 }
 
-.show_selecting_online #menu,
-.show_online #menu,
-.show_pnp #menu,
-.show_end #menu,
+.show_selecting_online #home_menu,
+.show_online #home_menu,
+.show_pnp #home_menu,
+.show_end #home_menu,
 
 .show_menu #selecting_online,
 .show_pnp #selecting_online,
@@ -283,10 +283,17 @@ body {
 	width: 40px;
 }
 
-.back {
+.menu_bar .s_button {
 	font-size: 1.4em;
-	padding-left: 12px;
 	position: relative;
+}
+
+.menu_bar .s_left .s_button {
+	padding-left: 12px;
+}
+
+.menu_bar .s_right .s_button {
+	padding-right: 12px;
 }
 
 @media screen and ( max-width: 767px ) and (hover: none) {
@@ -335,7 +342,7 @@ h1 {
 	flex-direction: column;
 }
 
-#menu,
+#home_menu,
 #selecting_online,
 #end_game {
 	border: 4px solid black;
@@ -343,9 +350,9 @@ h1 {
 	box-sizing: border-box;
 }
 
-#menu,
+#home_menu,
 #end_game {
-	padding: 20px 5% 80px;
+	padding: 20px 5% 20px;
 }
 
 h1.page_title {
@@ -354,6 +361,18 @@ h1.page_title {
 	margin-bottom: 18px;
 	color: #383838;
 	text-transform: uppercase;
+}
+
+h1.page_title .s_small {
+	font-size: 30px; /* Or: 25px for 60px // 30px (smaller) for 77px */
+	line-height: 1em;
+	display: block;
+}
+
+h1.page_title .s_large {
+	font-size: 77px;
+	display: block;
+	line-height: 1em;
 }
 
 
@@ -498,7 +517,7 @@ a.button {
 	color: #555;
 }
 
-#menu_button_after_victory {
+#home_menu_button_after_victory {
 	font-size: 18px;
 	margin-top: 18px;
 	text-decoration: none;

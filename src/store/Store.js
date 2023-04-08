@@ -7,17 +7,17 @@ let load_saved_state = false
 
 const default_state = {
         logged_in: 	        true,
-        user:			    "Tomek",
+        user:			    null,
         token:		        'unset',
 		online: {
-			user: 				'Tomek', // Tomek/logging_in/etc
-			userpass: 			'pass',
-			game_id: 			22,
-			game_pass: 			10559,
-			side: 				1,
-			// game_id: null,
-			// game_pass: null,
-			// side: null,
+			user: 				null, // Tomek/logging_in/etc
+			userpass: 			null, // pass/etc
+			// game_id: 			22,
+			// game_pass: 			10559,
+			// side: 				1,
+			game_id: null,
+			game_pass: null,
+			side: null,
 			subscreen: 			'user menu', // default = 'user menu'
 			error: 				null,
 			login_error: 		null,
