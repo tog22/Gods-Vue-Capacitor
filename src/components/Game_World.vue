@@ -950,7 +950,7 @@ export default {
 
 			var server_request = new XMLHttpRequest()
 
-			let get_url = 'http://godcloud.philosofiles.com/?action=update&game='+this.online.game_id+'&pw='+this.online.game_pass+'&turn='+this.turn+'&current_player='+this.current_player+'&sending_player_name='+this.store.user+'&winner='+this.winner+'&win_type='+this.win_type+'&sotw='+JSON.stringify(this.sotw);
+			let get_url = 'http://godcloud.philosofiles.com/?action=update&game='+this.store.online.game_id+'&pw='+this.store.online.game_pass+'&turn='+this.turn+'&current_player='+this.current_player+'&sending_player_name='+this.store.user+'&winner='+this.winner+'&win_type='+this.win_type+'&sotw='+JSON.stringify(this.sotw);
 
 			server_request.open("GET", get_url, false) // false = synchronous
 			server_request.send()
@@ -966,9 +966,9 @@ export default {
 			}
 
 			if (
-				(this.current_player === 1 && this.online.side === 2)
+				(this.current_player === 1 && this.store.online.side === 2)
 				||
-				(this.current_player === 2 && this.online.side === 1)
+				(this.current_player === 2 && this.store.online.side === 1)
 			) {
 				return true
 			} else {
@@ -1126,12 +1126,26 @@ export default {
     data() {
         
         const store_parent = inject("store")
+		let store_pre_setup = store_parent.state
 			
         var turn
         var sotw
         var current_player
 
         if (this.online_screen) {
+			var server_request = new XMLHttpRequest()
+
+			let get_url = 'http://godcloud.philosofiles.com/?action=get&game='+store_pre_setup.online.game_id+'&pw='+store_pre_setup.online.game_pass
+			lo(get_url)
+
+			server_request.open("GET", get_url, false) // false = synchronous
+			server_request.send()
+
+			const response = JSON.parse(server_request.responseText)
+
+			turn = response.turn
+			current_player = response.current_player
+			sotw = response.sotw
         } else if (!this.online_screen) {
             turn = 1
             current_player = 1
@@ -1140,7 +1154,7 @@ export default {
         }
 
         return {
-            store: store_parent.state,
+            store: 					store_parent.state,
             turn: 					turn,
             current_player: 		current_player,
             piece_has_moved: 		false,
