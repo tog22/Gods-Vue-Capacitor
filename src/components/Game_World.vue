@@ -1127,6 +1127,7 @@ export default {
         
         const store_parent = inject("store")
 		let store_pre_setup = store_parent.state
+		lo(store_pre_setup)
 			
         var turn
         var sotw

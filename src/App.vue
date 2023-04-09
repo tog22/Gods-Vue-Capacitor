@@ -48,6 +48,7 @@ export default defineComponent({
 		**  🔥 FIREBASE  **
 		******************/
 
+		debugger
 		if (Capacitor.isNativePlatform()) {
 			
 			
@@ -108,20 +109,19 @@ export default defineComponent({
 				}
 			);
 			firebase_messaging.onMessage((message) => {
-				alert('FCM received ')
-				console.log('FCM message = ',message)
-				// let msg_body = fcm_body_to_object(message.notification.body)
-				// switch (message.notification.title) {
-				// 	case 'move':
-				// 		// bus.$emit('move', msg_body)
-				// 		console.log('move', msg_body)
-				// 		break
-				// 	default: { // {} to allow `let`
-				// 		let alert_text = 'Unknown firebase message received: '+JSON.stringify(message.notification)
-				// 		alert(alert_text)
-				// 		break
-				// 	}
-				// }
+				console.log('📨 Message received', message)
+				let msg_data = message.notification.data
+				switch (message.notification.title) {
+					case 'move':
+					case "It's your turn":
+						bus.emit('move', msg_data)
+						break
+					default: { // {} to allow `let`
+						let alert_text = 'Unknown firebase message received: '+JSON.stringify(message.notification)
+						alert(alert_text)
+						break
+					}
+				}
 			})
 			provide('messaging', firebase_messaging)
 		}
