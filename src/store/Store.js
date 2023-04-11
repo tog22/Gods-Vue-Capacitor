@@ -10,14 +10,16 @@ const default_state = {
         user:			    null,
         token:		        'unset',
 		online: {
-			user: 				null, // Tomek/logging_in/etc
-			userpass: 			null, // pass/etc
-			// game_id: 			22,
-			// game_pass: 			10559,
-			// side: 				1,
-			game_id: null,
-			game_pass: null,
-			side: null,
+			// user: 				null,
+			// userpass: 			null,
+			// game_id: null,
+			// game_pass: null,
+			// side: null,
+			user: 				'Tomek',
+			userpass: 			'pass',
+			game_id: 			22,
+			game_pass: 			10559,
+			side: 				1,
 			subscreen: 			'user menu', // default = 'user menu'
 			error: 				null,
 			login_error: 		null,

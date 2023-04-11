@@ -48,7 +48,6 @@ export default defineComponent({
 		**  🔥 FIREBASE  **
 		******************/
 
-		debugger
 		if (Capacitor.isNativePlatform()) {
 			
 			
