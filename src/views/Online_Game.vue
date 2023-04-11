@@ -3,6 +3,21 @@
 		<div id="pnp_game" class="screen">
 			<Menu_Bar />
 			<Game_World :online_screen="true"  />
+			<div id="permission_request_container">
+				<div id="permission_request">
+					<div class="s_text">
+						Would you like to get notified when it's your turn while not in the app? (We recommend this.)
+					</div>
+					<div class="s_options">
+						<div class="s_option" @click="allow_notifications">
+							Yes
+						</div>
+						<div class="s_option" @click="deny_notifications">
+							No
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -32,3 +47,21 @@ export default defineComponent({
 	}
 })
 </script>
+
+<style>
+
+#permission_request_container {
+	position: relative;
+}
+
+#permission_request {
+	position: absolute;
+    bottom: 0px;
+    width: 100vw;
+
+    background: blue;
+	color: white;
+	font-weight: bold;
+}
+
+</style>
