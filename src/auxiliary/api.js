@@ -1,3 +1,5 @@
+// Based on https://semaphoreci.com/blog/api-layer-react
+
 import axios from 'axios';
 
 const api = axios.create({
@@ -61,7 +63,7 @@ function defineCancelApiObject(apiObject) {
 	return cancelApiObject
 }
 
-export default const godcloud = {
+const godcloud = {
 	get: async function (url, cancel = false) {
 		const response = await api.request({
 			url: 		url,
@@ -73,3 +75,7 @@ export default const godcloud = {
 		return response
 	},
 }
+
+const cancelApiObject = defineCancelApiObject(godcloud)
+
+export default godcloud
