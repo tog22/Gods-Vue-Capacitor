@@ -67,6 +67,7 @@
 import { inject } from 'vue'
 
 // Auxiliaries
+import api from '@/auxiliary/api'
 import bus from '@/auxiliary/bus'
 import starting_sotw from '@/auxiliary/SOTW_start'
 
@@ -979,19 +980,25 @@ export default {
 
 		get_game_state(game_id, game_pass) {
 
-			var server_request = new XMLHttpRequest()
+			this.dummy_game_state(game_id, game_pass)
+			// var server_request = new XMLHttpRequest()
 
-			let get_url = 'http://godcloud.philosofiles.com/?action=get&game='+game_id+'&pw='+game_pass
+			// let get_url = 'http://godcloud.philosofiles.com/?action=get&game='+game_id+'&pw='+game_pass
 
-			server_request.open("GET", get_url, false) // false = synchronous
-			server_request.send()
+			// server_request.open("GET", get_url, false) // false = synchronous
+			// server_request.send()
 
-			const response = JSON.parse(server_request.responseText)
+			// const response = JSON.parse(server_request.responseText)
 
-			this.turn = response.turn
-			this.current_player = response.current_player
-			this.sotw = response.sotw
+			// this.turn = response.turn
+			// this.current_player = response.current_player
+			// this.sotw = response.sotw
+		},
 
+		dummy_game_state(game_id = null, game_pass = null) {
+			this.turn = 1
+			this.current_player = 1
+			this.sotw = starting_sotw
 		},
 
 		on_fcm_update_received(update) {
@@ -1127,26 +1134,45 @@ export default {
         
         const store_parent = inject("store")
 		let store_pre_setup = store_parent.state
-		lo(store_pre_setup)
+		lo(1134)
 			
         var turn
         var sotw
         var current_player
 
         if (this.online_screen) {
+			turn = 1
+			current_player = 1
+			sotw = starting_sotw
+
+
+
 			var server_request = new XMLHttpRequest()
+			lo(1142)
 
 			let get_url = 'http://godcloud.philosofiles.com/?action=get&game='+store_pre_setup.online.game_id+'&pw='+store_pre_setup.online.game_pass
 			lo(get_url)
 
-			server_request.open("GET", get_url, false) // false = synchronous
-			server_request.send()
+			try {
+				server_request.open("GET", get_url, false) // false = synchronous)
+				server_request.send()
+			} catch (error) {
+				lo(error)
+			}
+			lo(1147)
+			console.log(server_request)
+			console.log('server_request =', server_request)
+			// console.log('server_request.responseText = ',server_request.responseText)
+			// const response = JSON.parse(server_request.responseText)
 
-			const response = JSON.parse(server_request.responseText)
-
-			turn = response.turn
-			current_player = response.current_player
-			sotw = response.sotw
+			// lo(1151)
+			// turn = response.turn
+			// current_player = response.current_player
+			// sotw = response.sotw
+			// lo(1153)
+			turn = 1
+			current_player = 1
+			sotw = starting_sotw
         } else if (!this.online_screen) {
             turn = 1
             current_player = 1

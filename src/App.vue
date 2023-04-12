@@ -48,43 +48,8 @@ export default defineComponent({
 		**  🔥 FIREBASE  **
 		******************/
 
-		if (Capacitor.isNativePlatform()) {
-			
-			
-			PushNotifications.requestPermissions().then(result => {
-				if (result.receive === 'granted') {
-					// Register with Apple / Google to receive push via APNS/FCM
-					// alert('Push notifications are enabled')
-					PushNotifications.register();
-				} else {
-					// alert('Push notifications are not enabled')
-				}
-			});
-			
-			PushNotifications.addListener('registration', (token) => {
-				// alert('Push registration success, token: ' + token.value);
-				togvue.log(token.value)
-			});
-			
-			PushNotifications.addListener('registrationError', (error) => {
-				alert('Error on registration: ' + JSON.stringify(error));
-			});
-			
-			PushNotifications.addListener(
-			'pushNotificationReceived',
-			(notification) => {
-				alert('Push received: ' + JSON.stringify(notification));
-			},
-			);
-			
-			PushNotifications.addListener(
-			'pushNotificationActionPerformed',
-			(notification) => {
-				alert('Push action performed: ' + JSON.stringify(notification));
-			},
-			);
-			
-		} else {
+		// Code for mobiles is in Online_Game.vue
+		if (!Capacitor.isNativePlatform()) {
 			// Firebase web version
 			let get_token = firebase_messaging.getToken({vapidKey: "BACyAFjs1KoHzgCkmXllHlmBBqj6yLbxcJSD4wjxjN-bJKl6zaWSevcaxkanK0RD05GJrPK-1yHodls6kGoaf4w"});
 			
