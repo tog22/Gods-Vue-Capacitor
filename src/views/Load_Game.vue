@@ -67,8 +67,16 @@ export default defineComponent({
 		let get_url = 'https://godcloud.philosofiles.com/?action=list_games&username='+this.store.online.user+'&userpass='+this.store.online.userpass
 		lo(get_url)
 
-		server_request.open("GET", get_url, false)
-		server_request.send()
+		try {
+			server_request.open("GET", get_url, false)
+			server_request.send()
+		} catch (error) {
+			alert('Error connecting to server')
+			console.log('error', error)
+			return
+		}
+		console.log('server_request', JSON.stringify(server_request))
+		console.log('lg79')
 
 		const response = JSON.parse(server_request.responseText)
 

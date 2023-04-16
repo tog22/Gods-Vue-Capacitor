@@ -48,7 +48,9 @@ import { defineComponent } from 'vue'
 
 // Auxiliaries
 import bus from '@/auxiliary/bus'
+import tog from '@/libraries/tog'
 import togvue from '@/libraries/togVue'
+import godcloud from '@/auxiliary/api'
 
 // Components
 import Menu_Bar from '../components/Menu_Bar.vue'
@@ -62,6 +64,13 @@ export default defineComponent({
 	name: 'Rules_Page',
 	components: {
 		Menu_Bar
+	},
+	created() {
+		godcloud.get('https://godcloud.philosofiles.com/?action=list_games&username=Tomek&userpass=pass').then((response) => {
+			console.log('gc resp = ',response)
+			togvue.log('gc done')
+			togvue.log(tog.debugging.dump(response.data))
+		})
 	},
     methods: {
 		next_page() {

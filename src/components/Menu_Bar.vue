@@ -18,9 +18,13 @@
 		>
 			🔄
 		</span>
-		<!-- <span class="dev_button" @click="dev_button()">
+		<span 
+			v-else 
+			@click="dev_button()"
+			class="s_button"
+		>
             #️⃣ 
-        </span> -->
+        </span>
 	</div>
 </div>
 <Debug_Display/>

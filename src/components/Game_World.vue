@@ -1162,7 +1162,8 @@ export default {
 			lo(1147)
 			console.log(server_request)
 			console.log('server_request =', server_request)
-			// console.log('server_request.responseText = ',server_request.responseText)
+			console.log('server_request, stringified =', JSON.stringify(server_request))
+			console.log('server_request.responseText = ',server_request.responseText)
 			// const response = JSON.parse(server_request.responseText)
 
 			// lo(1151)
