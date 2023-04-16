@@ -74,6 +74,7 @@ export default defineComponent({
 
 		godcloud.get(get_url).then((response) => {
 
+			bus.emit('debug display', '.then triggered')
 			console.log('gc resp = ',response)
 			togvue.log(tog.debugging.dump(response.data))
 			if (response.result === 'failure' || !response.games_found) {

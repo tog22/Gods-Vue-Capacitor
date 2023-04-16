@@ -122,8 +122,11 @@ export default {
 
 			// New asynchronous code
 
+			bus.emit('debug display', 'about to exec godcloud.get(get_url)')
+
 			godcloud.get(get_url).then((response) => {
 				
+				bus.emit('debug display', '.then triggered')
 				console.log('gc resp = ',response)
 				togvue.log(tog.debugging.dump(response.data))
 				
