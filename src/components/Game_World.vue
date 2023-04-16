@@ -1,5 +1,10 @@
 <template>
-    <div class="game_world">
+    <div v-if="online_is_loading" id="loading">
+		<div class="s_text">
+			Loading...
+		</div>
+	</div>
+	<div v-else class="game_world">
 		<table class="board">
 			<tr v-for="(row, row_index) in sotw" :key="'r'+row_index">
 				<Square
@@ -69,7 +74,10 @@ import { inject } from 'vue'
 // Auxiliaries
 import api from '@/auxiliary/api'
 import bus from '@/auxiliary/bus'
+import godcloud from '@/auxiliary/api'
 import starting_sotw from '@/auxiliary/SOTW_start'
+import tog from '@/libraries/tog'
+import togvue from '@/libraries/togVue'
 
 // Components
 import Square from '@/components/Square.vue'
@@ -94,6 +102,39 @@ export default {
 	},
 
     created() {
+
+		/***********************
+		**  GET DATA FROM API **
+		***********************/
+
+		if (this.online_screen) {
+			
+			let debug_mode = false
+
+			if (debug_mode) {
+				this.turn = 1
+				this.current_player = 1
+				this.sotw = starting_sotw
+			}
+ 			
+			let get_url = 'http://godcloud.philosofiles.com/?action=get&game='+this.store.online.game_id+'&pw='+this.store.online.game_pass
+			lo(get_url)
+
+			// New asynchronous code
+
+			godcloud.get(get_url).then((response) => {
+				
+				console.log('gc resp = ',response)
+				togvue.log(tog.debugging.dump(response.data))
+				
+				this.turn = response.turn
+				this.current_player = response.current_player
+				this.sotw = response.sotw
+				this.online_is_loading = false
+				
+			})
+
+		}
 
         /*******************
         **  BUS HANDLERS  **
@@ -122,6 +163,7 @@ export default {
                 this.online_game = data.online_game
             }
         })
+
     },
     
 	methods: {
@@ -1133,53 +1175,17 @@ export default {
     data() {
         
         const store_parent = inject("store")
-		let store_pre_setup = store_parent.state
-		lo(1134)
-			
-        var turn
-        var sotw
-        var current_player
+		// let store_pre_setup = store_parent.state
+		
+		// ↓ Initial values - for online games these get updated in created(). They can't be set here because GodCloud is asyncronous.
+        let turn = 1
+        let current_player = 1
+        let sotw = starting_sotw
+		let online_is_loading = false
 
-        if (this.online_screen) {
-			turn = 1
-			current_player = 1
-			sotw = starting_sotw
-
-
-
-			var server_request = new XMLHttpRequest()
-			lo(1142)
-
-			let get_url = 'http://godcloud.philosofiles.com/?action=get&game='+store_pre_setup.online.game_id+'&pw='+store_pre_setup.online.game_pass
-			lo(get_url)
-
-			try {
-				server_request.open("GET", get_url, false) // false = synchronous)
-				server_request.send()
-			} catch (error) {
-				lo(error)
-			}
-			lo(1147)
-			console.log(server_request)
-			console.log('server_request =', server_request)
-			console.log('server_request, stringified =', JSON.stringify(server_request))
-			console.log('server_request.responseText = ',server_request.responseText)
-			// const response = JSON.parse(server_request.responseText)
-
-			// lo(1151)
-			// turn = response.turn
-			// current_player = response.current_player
-			// sotw = response.sotw
-			// lo(1153)
-			turn = 1
-			current_player = 1
-			sotw = starting_sotw
-        } else if (!this.online_screen) {
-            turn = 1
-            current_player = 1
-            sotw = starting_sotw
-            
-        }
+		if (this.online_screen) {
+			online_is_loading = true
+		}
 
         return {
             store: 					store_parent.state,
@@ -1195,6 +1201,7 @@ export default {
             winner:					null,
             win_type: 				null,
             online_game:			this.online_screen,
+			online_is_loading:		online_is_loading,
             sotw: 					sotw,
         }
 

@@ -80,6 +80,7 @@ const godcloud = {
 		}
 
 		if (key_exists('data', response)) {
+			// console.log('raw response', response)
 			return response.data
 		} else {
 			console.log("Error: No 'data' key in API response. response.status is 200 (succesful)")

@@ -400,6 +400,20 @@ h1.page_title .s_large {
 
 
 /**************************/
+/* !ONLINE GAMES
+/**************************/
+#loading {
+	
+	display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+	justify-content: center;
+
+	color: black;
+	text-align: center;
+}
+
+/**************************/
 /* !ONLINE MENU
 /**************************/
 
