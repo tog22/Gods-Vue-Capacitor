@@ -1,6 +1,8 @@
 // Based on https://semaphoreci.com/blog/api-layer-react
 
 import axios from 'axios';
+import { key_exists } from '@/libraries/tog'
+
 
 const api = axios.create({
 	baseURL: 'http://godcloud.philosofiles.com/',
@@ -71,8 +73,18 @@ const godcloud = {
 			// ↓ retrieving the signal value by using the property name
 			signal: 	cancel ? cancelApiObject[this.get.name].handleRequestCancellation().signal : undefined,
 		})
+
+		if (response.status !== 200) {
+			console.log("Error: " + response.status)
+			return false
+		}
+
+		if (key_exists('data', response)) {
+			return response.data
+		} else {
+			console.log("Error: No 'data' key in API response. response.status is 200 (succesful)")
+		}
 		
-		return response
 	},
 }
 

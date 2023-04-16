@@ -45,6 +45,9 @@ import { defineComponent, inject } from 'vue'
 
 // Auxiliaries
 import bus from '@/auxiliary/bus'
+import tog from '@/libraries/tog'
+import togvue from '@/libraries/togVue'
+import godcloud from '@/auxiliary/api'
 
 // Components
 import Menu_Bar from '../components/Menu_Bar.vue'
@@ -63,30 +66,47 @@ export default defineComponent({
 	},
 
 	created() {
-		let server_request = new XMLHttpRequest()
+		
 		let get_url = 'https://godcloud.philosofiles.com/?action=list_games&username='+this.store.online.user+'&userpass='+this.store.online.userpass
 		lo(get_url)
 
-		try {
-			server_request.open("GET", get_url, false)
-			server_request.send()
-		} catch (error) {
-			alert('Error connecting to server')
-			console.log('error', error)
-			return
-		}
-		console.log('server_request', JSON.stringify(server_request))
-		console.log('lg79')
+		// New asynchronous code
 
-		const response = JSON.parse(server_request.responseText)
+		godcloud.get(get_url).then((response) => {
 
-		if (response.result === 'failure' || !response.games_found) {
-			alert("You don't have any active games")
-			return
-			// todo: change
-		}
+			console.log('gc resp = ',response)
+			togvue.log(tog.debugging.dump(response.data))
+			if (response.result === 'failure' || !response.games_found) {
+				alert("You don't have any active games")
+			} else {
+				this.store.online.games = response.games
+			}
 
-		this.store.online.games = response.games
+		})
+
+		// Old synchronous code
+
+		// let server_request = new XMLHttpRequest()
+		// try {
+		// 	server_request.open("GET", get_url, false)
+		// 	server_request.send()
+		// } catch (error) {
+		// 	alert('Error connecting to server')
+		// 	console.log('error', error)
+		// 	return
+		// }
+		// console.log('server_request', JSON.stringify(server_request))
+
+		// const response = JSON.parse(server_request.responseText)
+
+		// if (response.result === 'failure' || !response.games_found) {
+		// 	alert("You don't have any active games")
+		// 	return
+		// 	// todo: change
+		// }
+
+		// this.store.online.games = response.games
+
 	},
 
 	methods: {

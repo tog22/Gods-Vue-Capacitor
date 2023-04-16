@@ -2,7 +2,7 @@
 ******************
 **  			**
 **    tog.js    **
-**    v1.14     **
+**    v1.16     **
 **  			**
 ******************
 *****************/
@@ -66,6 +66,8 @@ Specific Libraries
 		mark_loaded
 	FCM (Firebase Cloud Messages)
 		body_to_object
+Shorter function names
+	key_exists
 
 **************************/
 
@@ -321,237 +323,241 @@ var tog = {
 	},
 	
 	
-	/*
-	animation: {
-		animate_element_when_it_appears:
-		function
-		(
-			element_selector,
-			animation,
-			animation_is_a_function_not_a_class = false
-			)
-			{
-				// TO DO: check if this variable is actually available (in scope) when the scroll function is run. If not the if(anim_not_yet_triggered) check for it won't work.
-				let anim_not_yet_triggered = true;
-				
-				$(window).scroll(function(event) {
-					if (anim_not_yet_triggered) {
-						$(element_selector).each(function(i, el) {
-							var el = $(el);
-							if (el.visible(true)) {
-								/*
-								if (animation_is_a_function_not_a_class)
-								{
-									TO DO: find out how to call a function passed as an arg
-									animation();
-								} else {
-									*//*
-									el.addClass(animation);
-									// } // End else
-									anim_not_yet_triggered = false;
-								}
-							});
-						}
-					}
-				},
-			},
-			*/
+	
+	// animation: {
+	// 	animate_element_when_it_appears:
+	// 	function(element_selector, animation, animation_is_a_function_not_a_class = false)
+	// 	{
+	// 		// TO DO: check if this variable is actually available (in scope) when the scroll function is run. If not the if(anim_not_yet_triggered) check for it won't work.
+	// 		let anim_not_yet_triggered = true;
 			
-			numbers:
-			{
-				random_from:
-				function (array) {
-					return array[Math.floor(Math.random() * array.length)];
-				}
-			},
-			
-			strings:
-			{
-				/* !To convert to methods */
-				/*
-				To convert to methods
-				function capitalizeFirstLetter(string) {
-					return string.charAt(0).toUpperCase() + string.slice(1);
-				}
-				
-				function is_blank_string(str) {
-					return (!str || /^\s*$/.test(str));
-				}
-				
-				function is_empty_string(str) {
-					return (!str || str.length === 0 );
-				}
-				*/
-			},
-			
-			
-			
-			error_catching: 
-			{
-				parse_json:
-				function(json) {
-					let object
-					try {
-						object = JSON.parse(json)
-					} catch (error) {
-						let stringified_error = JSON.stringify(error)
-						if (error instanceof SyntaxError) {
-							lo('SyntaxError: '+stringified_error)
-							alert('SyntaxError: '+stringified_error)
-						} else {
-							let to_show = 'Non-SyntaxError: '+stringified_error
-						}
-					}
-					return object
-				}
-			},
-			
-			debugging:
-			{
-				
-				
-				dump:
-				function(v, howDisplay, recursionLevel) {
-					
-					/*
-					dump() displays the contents of a variable like var_dump() does in PHP. dump() is
-					better than typeof, because it can distinguish between array, null and object.
-					Parameters:
-					v:              The variable
-					howDisplay:     "none", "body", "alert" (default)
-					recursionLevel: Number of times the function has recursed when entering nested
-					objects or arrays. Each level of recursion adds extra space to the
-					output to indicate level. Set to 0 by default.
-					Return Value:
-					A string of the variable's contents
-					Limitations:
-					Can't pass an undefined variable to dump(). 
-					dump() can't distinguish between int and float.
-					dump() can't tell the original variable type of a member variable of an object.
-					These limitations can't be fixed because these are *features* of JS. However, dump()
-					*/
-					
-					howDisplay = (typeof howDisplay === 'undefined') ? "alert" : howDisplay;
-					recursionLevel = (typeof recursionLevel !== 'number') ? 0 : recursionLevel;
-					
-					var vType = typeof v;
-					var out = vType;
-					
-					switch (vType) {
-						case "number":
-						/* there is absolutely no way in JS to distinguish 2 from 2.0
-						so 'number' is the best that you can do. The following doesn't work:
-						var er = /^[0-9]+$/;
-						if (!isNaN(v) && v % 1 === 0 && er.test(3.0)) {
-							out = 'int';
-						}
-						*/
-						break;
-						case "boolean":
-						out += ": " + v;
-						break;
-						case "string":
-						out += "(" + v.length + '): "' + v + '"';
-						break;
-						case "object":
-						//check if null
-						if (v === null) {
-							out = "null";
-						}
-						//If using jQuery: if ($.isArray(v))
-						//If using IE: if (isArray(v))
-						//this should work for all browsers according to the ECMAScript standard:
-						else if (Object.prototype.toString.call(v) === '[object Array]') {
-							out = 'array(' + v.length + '): {\n';
-							for (var i = 0; i < v.length; i++) {
-								out += tog.debugging. repeatString('   ', recursionLevel) + "   [" + i + "]:  " +
-								tog.debugging.dump(v[i], "none", recursionLevel + 1) + "\n";
-							}
-							out += tog.debugging. repeatString('   ', recursionLevel) + "}";
-						}
-						else {
-							//if object
-							let sContents = "{\n";
-							let cnt = 0;
-							for (var member in v) {
-								//No way to know the original data type of member, since JS
-								//always converts it to a string and no other way to parse objects.
-								sContents += tog.debugging. repeatString('   ', recursionLevel) + "   " + member +
-								":  " + tog.debugging.dump(v[member], "none", recursionLevel + 1) + "\n";
-								cnt++;
-							}
-							sContents += tog.debugging. repeatString('   ', recursionLevel) + "}";
-							out += "(" + cnt + "): " + sContents;
-						}
-						break;
-						default:
-						out = v;
-						break;
-					}
-					
-					if (howDisplay == 'body') {
-						var pre = document.createElement('pre');
-						pre.innerHTML = out;
-						document.body.appendChild(pre);
-					}
-					else if (howDisplay == 'alert') {
-						alert(out);
-					}
-					
-					return out;
-				},
-				
-				
-				repeatString:
-				function(str, num) {
-					let out = '';
-					for (var i = 0; i < num; i++) {
-						out += str;
-					}
-					return out;
-				}
-			},
-			
-			
-			/*********************
-			**					**
-			**     SPECIFIC     **
-			**	   LIBRARIES    **
-			**  	      		**
-			*********************/
-			
-			vue:
-			{
-				
-				mark_loaded:
-				function(aspect_to_mark, component) {
-					if ('loaded' in component) {
-						component.loaded[aspect_to_mark] = true
-						component.loaded.overall = true
-						for (var aspect in component.loaded) {
-							if (!component.loaded[aspect]) {
-								component.loaded.overall = false
-							}
-						}
-					}
-				},
-			},
-			
-			fcm:
-			{
-				body_to_object:
-				function(string) {
-					string.replace('\"', '"') // eslint-disable-line
-					let object = JSON.parse(string)
-					return object
-					
-				}
-			}
-			
-		};
-		
-		let lo = function (to_log) {
-			console.log(to_log)
+	// 		$(window).scroll(function(event) {
+	// 			if (anim_not_yet_triggered) {
+	// 				$(element_selector).each(function(i, el) {
+	// 					var el = $(el);
+	// 					if (el.visible(true)) {
+							
+	// 						if (animation_is_a_function_not_a_class)
+	// 						{
+	// 							TO DO: find out how to call a function passed as an arg
+	// 							animation();
+	// 						} else {
+	// 							*//*
+	// 							el.addClass(animation);
+	// 							// } // End else
+	// 							anim_not_yet_triggered = false;
+	// 						}
+	// 					}
+	// 				});
+	// 			}
+	// 		}
+	// 	},
+	// },
+	
+	
+	numbers:
+	{
+		random_from:
+		function (array) {
+			return array[Math.floor(Math.random() * array.length)];
+		}
+	},
+	
+	strings:
+	{
+		/* !To convert to methods */
+		/*
+		To convert to methods
+		function capitalizeFirstLetter(string) {
+			return string.charAt(0).toUpperCase() + string.slice(1);
 		}
 		
-		export default tog
+		function is_blank_string(str) {
+			return (!str || /^\s*$/.test(str));
+		}
+		
+		function is_empty_string(str) {
+			return (!str || str.length === 0 );
+		}
+		*/
+	},
+	
+	
+	
+	error_catching: 
+	{
+		parse_json:
+		function(json) {
+			let object
+			try {
+				object = JSON.parse(json)
+			} catch (error) {
+				let stringified_error = JSON.stringify(error)
+				if (error instanceof SyntaxError) {
+					lo('SyntaxError: '+stringified_error)
+					alert('SyntaxError: '+stringified_error)
+				} else {
+					let to_show = 'Non-SyntaxError: '+stringified_error
+				}
+			}
+			return object
+		}
+	},
+	
+	debugging:
+	{
+		
+		
+		dump:
+		function(v, howDisplay, recursionLevel) {
+			
+			/*
+			dump() displays the contents of a variable like var_dump() does in PHP. dump() is
+			better than typeof, because it can distinguish between array, null and object.
+			Parameters:
+			v:              The variable
+			howDisplay:     "none" (default), "body", "alert"
+			recursionLevel: Number of times the function has recursed when entering nested
+			objects or arrays. Each level of recursion adds extra space to the
+			output to indicate level. Set to 0 by default.
+			Return Value:
+			A string of the variable's contents
+			Limitations:
+			Can't pass an undefined variable to dump(). 
+			dump() can't distinguish between int and float.
+			dump() can't tell the original variable type of a member variable of an object.
+			These limitations can't be fixed because these are *features* of JS. However, dump()
+			*/
+			
+			howDisplay = (typeof howDisplay === 'undefined') ? "none" : howDisplay;
+			// ↑ howDisplay options: "none" (default), "body", "alert"
+
+			recursionLevel = (typeof recursionLevel !== 'number') ? 0 : recursionLevel;
+			
+			var vType = typeof v;
+			var out = vType;
+			
+			switch (vType) {
+				case "number":
+				/* there is absolutely no way in JS to distinguish 2 from 2.0
+				so 'number' is the best that you can do. The following doesn't work:
+				var er = /^[0-9]+$/;
+				if (!isNaN(v) && v % 1 === 0 && er.test(3.0)) {
+					out = 'int';
+				}
+				*/
+				break;
+				case "boolean":
+				out += ": " + v;
+				break;
+				case "string":
+				out += "(" + v.length + '): "' + v + '"';
+				break;
+				case "object":
+				//check if null
+				if (v === null) {
+					out = "null";
+				}
+				//If using jQuery: if ($.isArray(v))
+				//If using IE: if (isArray(v))
+				//this should work for all browsers according to the ECMAScript standard:
+				else if (Object.prototype.toString.call(v) === '[object Array]') {
+					out = 'array(' + v.length + '): {\n';
+					for (var i = 0; i < v.length; i++) {
+						out += tog.debugging. repeatString('   ', recursionLevel) + "   [" + i + "]:  " +
+						tog.debugging.dump(v[i], "none", recursionLevel + 1) + "\n";
+					}
+					out += tog.debugging. repeatString('   ', recursionLevel) + "}";
+				}
+				else {
+					//if object
+					let sContents = "{\n";
+					let cnt = 0;
+					for (var member in v) {
+						//No way to know the original data type of member, since JS
+						//always converts it to a string and no other way to parse objects.
+						sContents += tog.debugging. repeatString('   ', recursionLevel) + "   " + member +
+						":  " + tog.debugging.dump(v[member], "none", recursionLevel + 1) + "\n";
+						cnt++;
+					}
+					sContents += tog.debugging. repeatString('   ', recursionLevel) + "}";
+					out += "(" + cnt + "): " + sContents;
+				}
+				break;
+				default:
+				out = v;
+				break;
+			}
+			
+			if (howDisplay == 'body') {
+				var pre = document.createElement('pre');
+				pre.innerHTML = out;
+				document.body.appendChild(pre);
+			}
+			else if (howDisplay == 'alert') {
+				alert(out);
+			}
+			
+			return out;
+		},
+		
+		
+		repeatString:
+		function(str, num) {
+			let out = '';
+			for (var i = 0; i < num; i++) {
+				out += str;
+			}
+			return out;
+		}
+	},
+	
+	
+	/*********************
+	**					**
+	**     SPECIFIC     **
+	**	   LIBRARIES    **
+	**  	      		**
+	*********************/
+	
+	vue:
+	{
+		
+		mark_loaded:
+		function(aspect_to_mark, component) {
+			if ('loaded' in component) {
+				component.loaded[aspect_to_mark] = true
+				component.loaded.overall = true
+				for (var aspect in component.loaded) {
+					if (!component.loaded[aspect]) {
+						component.loaded.overall = false
+					}
+				}
+			}
+		},
+	},
+	
+	fcm:
+	{
+		body_to_object:
+		function(string) {
+			string.replace('\"', '"') // eslint-disable-line
+			let object = JSON.parse(string)
+			return object
+			
+		}
+	}
+	
+};
+
+// Shorter function names
+
+export function key_exists(key, object) {
+	return Object.prototype.hasOwnProperty.call(object, key)
+}
+
+let lo = function (to_log) {
+	console.log(to_log)
+}
+
+export default tog
