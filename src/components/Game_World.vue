@@ -122,7 +122,7 @@ export default {
 
 			// New asynchronous code
 
-			bus.emit('debug display', 'about to exec godcloud.get(get_url)')
+			bus.emit('debug display', '?action=get&game='+this.store.online.game_id+'&pw='+this.store.online.game_pass)
 
 			godcloud.get(get_url).then((response) => {
 				
