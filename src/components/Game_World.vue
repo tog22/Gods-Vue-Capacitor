@@ -70,6 +70,7 @@
 
 // External libraries
 import { inject } from 'vue'
+import axios from 'axios'; // for temp test
 
 // Auxiliaries
 import api from '@/auxiliary/api'
@@ -109,6 +110,19 @@ export default {
 
 		if (this.online_screen) {
 			
+			// Start of more direct approach for StackOverflow:
+			
+			// const api = axios.create({
+			// 	baseURL: 'http://godcloud.philosofiles.com/',
+			// 	headers: {
+			// 		'Content-Type': 'application/json',
+			// 	},
+			// });
+
+			// let get_url = // http://godcloud.philosofiles.com/?action=get&game=22&pw=10559
+
+
+			/**/
 			let debug_mode = false
 
 			if (debug_mode) {
@@ -117,7 +131,7 @@ export default {
 				this.sotw = starting_sotw
 			}
  			
-			let get_url = 'http://godcloud.philosofiles.com/?action=get&game='+this.store.online.game_id+'&pw='+this.store.online.game_pass
+			let get_url = 'https://godcloud.philosofiles.com/?action=get&game='+this.store.online.game_id+'&pw='+this.store.online.game_pass
 			lo(get_url)
 
 			// New asynchronous code
@@ -136,7 +150,7 @@ export default {
 				this.online_is_loading = false
 				
 			})
-
+			/**/
 		}
 
         /*******************

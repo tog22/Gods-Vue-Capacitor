@@ -44,6 +44,7 @@ import firebase_messaging from '@/auxiliary/firebase'
 
 // Auxiliaries
 import togvue from '@/libraries/togVue'
+import bus from '@/auxiliary/bus'
 
 // Components
 import Menu_Bar from '../components/Menu_Bar.vue'
@@ -65,43 +66,46 @@ export default defineComponent({
 			if (this.push_notifications_supported) {
 				this.store.show_notifications_banner = false
 			}
-			// if (Capacitor.isNativePlatform()) {
+			alert(68)
+			if (Capacitor.isNativePlatform()) {
 			
 				alert('native')
-				// PushNotifications.requestPermissions().then(result => {
-				// 	if (result.receive === 'granted') {
-				// 		// Register with Apple / Google to receive push via APNS/FCM
-				// 		// alert('Push notifications are enabled')
-				// 		PushNotifications.register();
-				// 	} else {
-				// 		// alert('Push notifications are not enabled')
-				// 	}
-				// });
+				PushNotifications.requestPermissions().then(result => {
+					if (result.receive === 'granted') {
+						// Register with Apple / Google to receive push via APNS/FCM
+						// alert('Push notifications are enabled')
+						PushNotifications.register();
+						alert(77)
+					} else {
+						// alert('Push notifications are not enabled')
+					}
+				});
 				
-				// PushNotifications.addListener('registration', (token) => {
-				// 	// alert('Push registration success, token: ' + token.value);
-				// 	togvue.log(token.value)
-				// });
+				PushNotifications.addListener('registration', (token) => {
+					alert('Push registration success, token: ' + token.value);
+					togvue.log(token.value)
+					bus.emit('debug display','Push registration success, token: ' + token.value)
+				});
 				
-				// PushNotifications.addListener('registrationError', (error) => {
-				// 	alert('Error on registration: ' + JSON.stringify(error));
-				// });
+				PushNotifications.addListener('registrationError', (error) => {
+					alert('Error on registration: ' + JSON.stringify(error));
+				});
 				
-				// PushNotifications.addListener(
-				// 'pushNotificationReceived',
-				// (notification) => {
-				// 	alert('Push received: ' + JSON.stringify(notification));
-				// },
-				// );
+				PushNotifications.addListener(
+				'pushNotificationReceived',
+				(notification) => {
+					alert('Push received: ' + JSON.stringify(notification));
+				},
+				);
 				
-				// PushNotifications.addListener(
-				// 'pushNotificationActionPerformed',
-				// (notification) => {
-				// 	alert('Push action performed: ' + JSON.stringify(notification));
-				// },
-				// );
+				PushNotifications.addListener(
+				'pushNotificationActionPerformed',
+				(notification) => {
+					alert('Push action performed: ' + JSON.stringify(notification));
+				},
+				);
 				
-			// }
+			}
 		},
 		deny_notifications() {
 			this.store.show_notifications_banner = false
