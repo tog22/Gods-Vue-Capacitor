@@ -51,6 +51,7 @@ import { defineComponent, inject } from 'vue'
 
 // Auxiliaries
 import bus from '@/auxiliary/bus'
+import godcloud from '@/auxiliary/api'
 
 // Components
 import Menu_Bar from '../components/Menu_Bar.vue'
@@ -73,11 +74,46 @@ export default defineComponent({
 		select_opponent() {
 
 			var opp = document.getElementById('newg_opponent').value
-			var server_request = new XMLHttpRequest()
 
 			let get_url = 'http://godcloud.philosofiles.com/?action=find_user&user='+opp
 			lo(get_url)
 
+			godcloud.get(get_url).then((api_response) => {
+				
+				const response = JSON.parse(api_response)
+				console.log(response)
+
+				if (response.result === 'failure') {
+					this.error = 'Opponent not found'
+				} else if (response.result === 'success') {
+
+					let pw = Math.floor(Math.random() * 32000)
+
+					let second_get_url = 'http://godcloud.philosofiles.com/?action=create&pw='+pw+'&p1='+this.store.online.user+'&p2='+opp
+					godcloud.get(second_get_url).then((api_response) => {
+						
+						const response = JSON.parse(api_response)
+
+						if (response.result === 'success') {
+							this.store.online.side =  1
+							this.store.online.game_id = response.game_id
+							this.store.online.game_pass = pw
+							this.$router.push('/online/play')
+						} else {
+							this.error = 'Failed to create game'
+						}
+
+					})
+
+				} else {
+					this.error = 'Unknown error'
+				}
+
+			})
+
+			/*
+			Old synchronous code:
+			var server_request = new XMLHttpRequest()
 			server_request.open("GET", get_url, false)
 			server_request.send()
 
@@ -109,6 +145,7 @@ export default defineComponent({
 			} else {
 				this.error = 'Unknown error'
 			}
+			*/
 
 		}
 

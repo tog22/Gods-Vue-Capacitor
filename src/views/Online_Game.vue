@@ -43,8 +43,10 @@ import {
 import firebase_messaging from '@/auxiliary/firebase'
 
 // Auxiliaries
-import togvue from '@/libraries/togVue'
 import bus from '@/auxiliary/bus'
+import godcloud from '@/auxiliary/api'
+import tog from '@/libraries/tog'
+import togvue from '@/libraries/togVue'
 
 // Components
 import Menu_Bar from '../components/Menu_Bar.vue'
@@ -63,28 +65,36 @@ export default defineComponent({
 	},
 	methods: {
 		allow_notifications() {
+			
 			if (this.push_notifications_supported) {
 				this.store.show_notifications_banner = false
 			}
-			alert(68)
+
 			if (Capacitor.isNativePlatform()) {
 			
-				alert('native')
 				PushNotifications.requestPermissions().then(result => {
 					if (result.receive === 'granted') {
 						// Register with Apple / Google to receive push via APNS/FCM
 						// alert('Push notifications are enabled')
 						PushNotifications.register();
-						alert(77)
+						alert('ran PushNotifications.register()')
 					} else {
 						// alert('Push notifications are not enabled')
 					}
 				});
 				
 				PushNotifications.addListener('registration', (token) => {
-					alert('Push registration success, token: ' + token.value);
 					togvue.log(token.value)
-					bus.emit('debug display','Push registration success, token: ' + token.value)
+					if (this.store.logged_in) {
+						alert(89)
+						let get_url = 'http://godcloud.philosofiles.com/?action=report_token&token='+this.store.token+'&user='+this.store.online.user;
+
+						godcloud.get(get_url).then((response) => {
+							alert('report token completed')
+							togvue.log(response)
+						})
+
+					}
 				});
 				
 				PushNotifications.addListener('registrationError', (error) => {
@@ -94,7 +104,11 @@ export default defineComponent({
 				PushNotifications.addListener(
 				'pushNotificationReceived',
 				(notification) => {
+					
+					togvue.log('📨 Message received: '+JSON.stringify(notification))
 					alert('Push received: ' + JSON.stringify(notification));
+					
+
 				},
 				);
 				

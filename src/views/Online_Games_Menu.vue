@@ -166,6 +166,7 @@ import { defineComponent, inject } from 'vue'
 
 // Auxiliaries
 import bus from '@/auxiliary/bus'
+import godcloud from '@/auxiliary/api'
 
 // Components
 import Menu_Bar from '../components/Menu_Bar.vue'
@@ -200,34 +201,26 @@ export default defineComponent({
 			let user = document.getElementById('login_user').value
 			let pw = document.getElementById('login_pass').value
 			
-			var server_request = new XMLHttpRequest()
-			
 			let get_url = 'http://godcloud.philosofiles.com/?action=login&username='+user+'&pw='+pw
-			//lo(get_url)
-			
-			server_request.open("GET", get_url, false)
-			server_request.send()
-			
-			const response = JSON.parse(server_request.responseText)
-			lo(response)
-			
-			if (response.result === 'success') {
-				
-				this.store.online.user = user
-				this.store.online.userpass = pw
-				this.report_token(user, this.store.token)
-				
-				this.subscreen = 'Initial menu'
-				
-			} else if (response.result === "un or pw wrong") {
-				
-				this.error = 'Incorrect login details'
-				
-			} else {
-				
-				this.error = 'Error logging in'
-				
-			}
+
+			godcloud.get(get_url).then((response) => {
+				if (response.hasOwnProperty('result')) { 
+					switch (response.result) {
+						case 'success':
+							this.store.online.user = user
+							this.store.online.userpass = pw
+							this.report_token(user, this.store.token)
+							this.subscreen = 'Initial menu'
+							break
+						case 'un or pw wrong':
+							this.error = 'Incorrect login details'
+							break
+						default:
+							this.error = 'Error logging in'
+							break
+					}
+				}
+			})
 			
 		},
 		sign_up_button() {
@@ -268,13 +261,19 @@ export default defineComponent({
 			
 		},
 		report_token(user, token) {
-			var server_request = new XMLHttpRequest()
 			
 			let get_url = 'http://godcloud.philosofiles.com/?action=report_token&token='+this.store.token+'&user='+user;
 			lo(get_url);
-			
-			server_request.open("GET", get_url, false) // false = synchronous
-			server_request.send()
+
+			godcloud.get(get_url).then((api_response) => {
+				alert('token reported')
+			})
+
+			// Old synchronous code:
+			// var server_request = new XMLHttpRequest()
+			// server_request.open("GET", get_url, false) // false = synchronous
+			// server_request.send()
+
 		},
 		online_games() {
 			this.which_screen =  'show_selecting_online'

@@ -6,7 +6,7 @@ let store_parent // What'll get exported
 let load_saved_state = false
 
 const default_state = {
-		logged_in: 	        			true,
+		logged_in: 	        			false,
 		user:			    			null,
 		token:		        			'unset',
 		show_notifications_banner: 		true,

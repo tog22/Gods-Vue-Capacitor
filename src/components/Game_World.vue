@@ -140,9 +140,8 @@ export default {
 
 			godcloud.get(get_url).then((response) => {
 				
-				bus.emit('debug display', '.then triggered')
-				console.log('gc resp = ',response)
-				togvue.log(tog.debugging.dump(response.data))
+				// console.log('gc resp = ',response)
+				// togvue.log(tog.debugging.dump(response.data))
 				
 				this.turn = response.turn
 				this.current_player = response.current_player
@@ -1008,14 +1007,19 @@ export default {
 
 		send_turn() {
 
-			var server_request = new XMLHttpRequest()
-
 			let get_url = 'http://godcloud.philosofiles.com/?action=update&game='+this.store.online.game_id+'&pw='+this.store.online.game_pass+'&turn='+this.turn+'&current_player='+this.current_player+'&sending_player_name='+this.store.online.user+'&winner='+this.winner+'&win_type='+this.win_type+'&sotw='+JSON.stringify(this.sotw);
+			
+			godcloud.get(get_url).then((response) => {
+				lo('🔄 Sending update. Response ='+response)
+			})
 
+			/* Old synchronous code
+			var server_request = new XMLHttpRequest()
 			server_request.open("GET", get_url, false) // false = synchronous
 			server_request.send()
 			lo('🔄 Sending update. Response =')
 			lo(server_request.responseText)
+			*/
 
 		},
 

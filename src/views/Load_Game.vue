@@ -116,18 +116,29 @@ export default defineComponent({
 		new_online() {
 			this.store.online.subscreen = 'select opponent'
 		},
+		/*
+		
+		not used atm:
+
 		select_opponent() {
 
 			var opp = document.getElementById('newg_opponent').value
-			var server_request = new XMLHttpRequest()
-
+			
 			let get_url = 'http://godcloud.philosofiles.com/?action=find_user&user='+opp
 			lo(get_url)
 
-			server_request.open("GET", get_url, false)
-			server_request.send()
+			godcloud.get(get_url).then((api_response) => {
+				const response = JSON.parse(api_response)
+				console.log()
+				const response = JSON.parse(api_response)
+			})
 
-			const response = JSON.parse(server_request.responseText)
+		 	// Old synchronous code
+			// var server_request = new XMLHttpRequest()
+			// server_request.open("GET", get_url, false)
+			// server_request.send()
+			// const response = JSON.parse(server_request.responseText)
+			
 
 			if (response.result === 'failure') {
 				this.store.online.error = 'Opponent not found'
@@ -158,6 +169,11 @@ export default defineComponent({
 			}
 
 		},
+		*/
+		/*
+		
+		not used atm:
+
 		continue_online() {
 
 			let server_request = new XMLHttpRequest()
@@ -179,6 +195,7 @@ export default defineComponent({
 			this.store.online.subscreen = 'continue online'
 
 		},
+		*/
 		load_game(id, pw, side) {
 			this.store.online.game_id = id
 			this.store.online.game_pass = pw

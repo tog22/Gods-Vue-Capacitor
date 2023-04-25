@@ -24,6 +24,7 @@ import { NavigationBar } from '@hugotomazi/capacitor-navigation-bar'
 // Auxiliaries
 import '@/assets/styles.css'
 import bus from '@/auxiliary/bus'
+import godcloud from '@/auxiliary/api'
 import store from './store/Store'
 import togvue from '@/libraries/togVue'
 
@@ -61,15 +62,20 @@ export default defineComponent({
 					lo(store_state.token)
 					
 					if (store_state.logged_in) {
-						var server_request = new XMLHttpRequest()
+						
 						let get_url = 'http://godcloud.philosofiles.com/?action=report_token&token='+store_state.token+'&user='+store_state.online.user;
 						lo(get_url);
-						server_request.open("GET", get_url, false) // false = synchronous
-						server_request.send()
+						godcloud.get(get_url) // no then condition
+						
+						// Old synchronous code
+						// var server_request = new XMLHttpRequest()
+						// server_request.open("GET", get_url, false) // false = synchronous
+						// server_request.send()
 					}
 				},
 				function (error) {
 					lo('🔥 FCM: error getting token')
+					lo(error)
 				}
 			);
 			firebase_messaging.onMessage((message) => {

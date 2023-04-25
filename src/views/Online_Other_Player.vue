@@ -1,7 +1,6 @@
 <template>
 	<div class="game_world_root mob_style dev">
 		<div id="pnp_game" class="screen">
-			ss
 			<Menu_Bar />
 			<Game_World :online_screen="true"  />
 		</div>
