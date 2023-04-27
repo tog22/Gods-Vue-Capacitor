@@ -87,7 +87,7 @@ export default defineComponent({
 					togvue.log(token.value)
 					if (this.store.logged_in) {
 						alert(89)
-						let get_url = 'http://godcloud.philosofiles.com/?action=report_token&token='+this.store.token+'&user='+this.store.online.user;
+						let get_url = 'https://godcloud.philosofiles.com/?action=report_token&token='+this.store.token+'&user='+this.store.online.user;
 
 						godcloud.get(get_url).then((response) => {
 							alert('report token completed')

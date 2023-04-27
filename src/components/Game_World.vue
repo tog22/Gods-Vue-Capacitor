@@ -113,13 +113,13 @@ export default {
 			// Start of more direct approach for StackOverflow:
 			
 			// const api = axios.create({
-			// 	baseURL: 'http://godcloud.philosofiles.com/',
+			// 	baseURL: 'https://godcloud.philosofiles.com/',
 			// 	headers: {
 			// 		'Content-Type': 'application/json',
 			// 	},
 			// });
 
-			// let get_url = // http://godcloud.philosofiles.com/?action=get&game=22&pw=10559
+			// let get_url = // https://godcloud.philosofiles.com/?action=get&game=22&pw=10559
 
 
 			/**/
@@ -1007,7 +1007,7 @@ export default {
 
 		send_turn() {
 
-			let get_url = 'http://godcloud.philosofiles.com/?action=update&game='+this.store.online.game_id+'&pw='+this.store.online.game_pass+'&turn='+this.turn+'&current_player='+this.current_player+'&sending_player_name='+this.store.online.user+'&winner='+this.winner+'&win_type='+this.win_type+'&sotw='+JSON.stringify(this.sotw);
+			let get_url = 'https://godcloud.philosofiles.com/?action=update&game='+this.store.online.game_id+'&pw='+this.store.online.game_pass+'&turn='+this.turn+'&current_player='+this.current_player+'&sending_player_name='+this.store.online.user+'&winner='+this.winner+'&win_type='+this.win_type+'&sotw='+JSON.stringify(this.sotw);
 			
 			godcloud.get(get_url).then((response) => {
 				lo('🔄 Sending update. Response ='+response)
@@ -1046,7 +1046,7 @@ export default {
 			this.dummy_game_state(game_id, game_pass)
 			// var server_request = new XMLHttpRequest()
 
-			// let get_url = 'http://godcloud.philosofiles.com/?action=get&game='+game_id+'&pw='+game_pass
+			// let get_url = 'https://godcloud.philosofiles.com/?action=get&game='+game_id+'&pw='+game_pass
 
 			// server_request.open("GET", get_url, false) // false = synchronous
 			// server_request.send()
@@ -1237,6 +1237,10 @@ export default {
 
 function lo(to_log) { 
 	console.log(to_log) 
+}
+
+function alo(to_log) {
+	bus.emit('debug display', to_log)
 }
 
 </script>

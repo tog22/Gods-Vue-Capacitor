@@ -5,9 +5,9 @@ import { key_exists } from '@/libraries/tog'
 
 
 const api = axios.create({
-	baseURL: 'http://godcloud.philosofiles.com/',
+	baseURL: 'https://godcloud.philosofiles.com/',
 	headers: {
-		'Content-Type': 'application/json',
+		'content-type': 'application/json',
 	},
 });
 

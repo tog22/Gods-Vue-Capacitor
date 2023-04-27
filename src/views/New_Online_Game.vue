@@ -75,7 +75,7 @@ export default defineComponent({
 
 			var opp = document.getElementById('newg_opponent').value
 
-			let get_url = 'http://godcloud.philosofiles.com/?action=find_user&user='+opp
+			let get_url = 'https://godcloud.philosofiles.com/?action=find_user&user='+opp
 			lo(get_url)
 
 			godcloud.get(get_url).then((api_response) => {
@@ -89,7 +89,7 @@ export default defineComponent({
 
 					let pw = Math.floor(Math.random() * 32000)
 
-					let second_get_url = 'http://godcloud.philosofiles.com/?action=create&pw='+pw+'&p1='+this.store.online.user+'&p2='+opp
+					let second_get_url = 'https://godcloud.philosofiles.com/?action=create&pw='+pw+'&p1='+this.store.online.user+'&p2='+opp
 					godcloud.get(second_get_url).then((api_response) => {
 						
 						const response = JSON.parse(api_response)
@@ -126,7 +126,7 @@ export default defineComponent({
 				let pw = Math.floor(Math.random() * 32000)
 
 				server_request = new XMLHttpRequest()
-				get_url = 'http://godcloud.philosofiles.com/?action=create&pw='+pw+'&p1='+this.store.online.user+'&p2='+opp
+				get_url = 'https://godcloud.philosofiles.com/?action=create&pw='+pw+'&p1='+this.store.online.user+'&p2='+opp
 
 				server_request.open("GET", get_url, false)
 				server_request.send()
@@ -169,6 +169,10 @@ export default defineComponent({
 
 function lo(to_log) { 
 	console.log(to_log) 
+}
+
+function alo(to_log) {
+	bus.emit('debug display', to_log)
 }
 
 

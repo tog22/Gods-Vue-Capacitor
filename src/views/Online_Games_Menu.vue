@@ -201,9 +201,10 @@ export default defineComponent({
 			let user = document.getElementById('login_user').value
 			let pw = document.getElementById('login_pass').value
 			
-			let get_url = 'http://godcloud.philosofiles.com/?action=login&username='+user+'&pw='+pw
+			let get_url = 'https://godcloud.philosofiles.com/?action=login&username='+user+'&pw='+pw
 
 			godcloud.get(get_url).then((response) => {
+				bus.emit('debug display', 'login .then response: '+JSON.stringify(response))
 				if (response.hasOwnProperty('result')) { 
 					switch (response.result) {
 						case 'success':
@@ -232,7 +233,7 @@ export default defineComponent({
 			
 			var server_request = new XMLHttpRequest()
 			
-			let get_url = 'http://godcloud.philosofiles.com/?action=signup&username='+user+'&pw='+pw
+			let get_url = 'https://godcloud.philosofiles.com/?action=signup&username='+user+'&pw='+pw
 			//lo(get_url)
 			
 			server_request.open("GET", get_url, false)
@@ -262,11 +263,12 @@ export default defineComponent({
 		},
 		report_token(user, token) {
 			
-			let get_url = 'http://godcloud.philosofiles.com/?action=report_token&token='+this.store.token+'&user='+user;
+			let get_url = 'https://godcloud.philosofiles.com/?action=report_token&token='+this.store.token+'&user='+user;
 			lo(get_url);
 
 			godcloud.get(get_url).then((api_response) => {
-				alert('token reported')
+				alo('token reported: '+token)
+				alo(JSON.stringify(api_response))
 			})
 
 			// Old synchronous code:
@@ -304,6 +306,10 @@ export default defineComponent({
 
 function lo(to_log) { 
 	console.log(to_log) 
+}
+
+function alo(to_log) {
+	bus.emit('debug display', to_log)
 }
 
 

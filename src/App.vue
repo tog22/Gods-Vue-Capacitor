@@ -63,7 +63,7 @@ export default defineComponent({
 					
 					if (store_state.logged_in) {
 						
-						let get_url = 'http://godcloud.philosofiles.com/?action=report_token&token='+store_state.token+'&user='+store_state.online.user;
+						let get_url = 'https://godcloud.philosofiles.com/?action=report_token&token='+store_state.token+'&user='+store_state.online.user;
 						lo(get_url);
 						godcloud.get(get_url) // no then condition
 						
@@ -113,6 +113,10 @@ function fcm_body_to_object(string) {
 
 function lo(to_log) { 
 	console.log(to_log) 
+}
+
+function alo(to_log) {
+	bus.emit('debug display', to_log)
 }
 
 </script>
