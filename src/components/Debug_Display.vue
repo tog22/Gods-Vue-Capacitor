@@ -60,7 +60,7 @@ export default {
 .debug_display {
 	
 	width: 100%;
-	height: 2.8em;
+	height: 80vh;
 	font-size: 0.8em;
 	background: #7c98b3;
 	
