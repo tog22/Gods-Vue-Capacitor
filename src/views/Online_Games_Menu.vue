@@ -210,7 +210,8 @@ export default defineComponent({
 						case 'success':
 							this.store.online.user = user
 							this.store.online.userpass = pw
-							this.report_token(user, this.store.token)
+							// ↓ Done when user proceeds to Online_Game.vue instead
+							// this.report_token(user, this.store.token) 
 							this.subscreen = 'Initial menu'
 							break
 						case 'un or pw wrong':
@@ -245,8 +246,8 @@ export default defineComponent({
 			if (response.result === 'success') {
 				
 				this.store.online.user = user
-				this.report_token(user, this.store.token)
-				
+				// ↓ Done when user proceeds to Online_Game.vue instead
+				// this.report_token(user, this.store.token)
 				this.subscreen = 'Initial menu'
 				
 			} else if (response.result === "sql error") {

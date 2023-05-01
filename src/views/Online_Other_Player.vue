@@ -2,7 +2,7 @@
 	<div class="game_world_root mob_style dev">
 		<div id="pnp_game" class="screen">
 			<Menu_Bar />
-			<Game_World :online_screen="true"  />
+			<Game_World :online_screen="true" :debug_player="true"  />
 		</div>
 	</div>
 </template>

@@ -6,7 +6,7 @@ let store_parent // What'll get exported
 let load_saved_state = false
 
 const default_state = {
-		logged_in: 	        			false,
+		logged_in: 	        			true,
 		user:			    			null,
 		token:		        			'unset',
 		show_notifications_banner: 		true,
@@ -17,7 +17,7 @@ const default_state = {
 			// game_pass: null,
 			// side: null,
 			user: 				'Tomek',
-			userpass: 			'pass',
+			userpass: 			'pass22',
 			game_id: 			22,
 			game_pass: 			10559,
 			side: 				1,

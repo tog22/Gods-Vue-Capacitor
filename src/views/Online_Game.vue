@@ -44,6 +44,7 @@ import firebase_messaging from '@/auxiliary/firebase'
 
 // Auxiliaries
 import bus from '@/auxiliary/bus'
+import fn from '@/auxiliary/functions'
 import godcloud from '@/auxiliary/api'
 import tog from '@/libraries/tog'
 import togvue from '@/libraries/togVue'
@@ -63,12 +64,19 @@ export default defineComponent({
 		Menu_Bar,
         Game_World
 	},
+	setup() {
+
+	},
 	methods: {
 		allow_notifications() {
 			
 			if (this.push_notifications_supported) {
 				this.store.show_notifications_banner = false
 			}
+
+			/******************
+			**  🔥 FIREBASE  **
+			******************/
 
 			if (Capacitor.isNativePlatform()) {
 			
@@ -77,23 +85,23 @@ export default defineComponent({
 						// Register with Apple / Google to receive push via APNS/FCM
 						// alert('Push notifications are enabled')
 						PushNotifications.register();
-						alert('ran PushNotifications.register()')
+						alo('ran PushNotifications.register()')
 					} else {
 						// alert('Push notifications are not enabled')
 					}
 				});
 				
 				PushNotifications.addListener('registration', (token) => {
-					togvue.log(token.value)
 					if (this.store.logged_in) {
-						alert(89)
+						this.store.token = token.value
 						let get_url = 'https://godcloud.philosofiles.com/?action=report_token&token='+this.store.token+'&user='+this.store.online.user;
-
+						alo(get_url)
 						godcloud.get(get_url).then((response) => {
 							alert('report token completed')
 							togvue.log(response)
 						})
-
+					} else {
+						alert('error: not logged in')
 					}
 				});
 				
@@ -102,14 +110,22 @@ export default defineComponent({
 				});
 				
 				PushNotifications.addListener(
-				'pushNotificationReceived',
-				(notification) => {
-					
-					togvue.log('📨 Message received: '+JSON.stringify(notification))
-					alert('Push received: ' + JSON.stringify(notification));
-					
-
-				},
+					'pushNotificationReceived',
+					(notification) => {
+						// fn.handle_notification(notification)
+						alo('📨 Message received', notification)
+						switch (notification.title) {
+							case 'move':
+							case "It's your turn":
+								bus.emit('move', notification.data)
+								break
+							default: { // {} to allow `let`
+								let alert_text = 'Unknown firebase message received: '+JSON.stringify(notification)
+								alert(alert_text)
+								break
+							}
+						}
+					},
 				);
 				
 				PushNotifications.addListener(
@@ -119,6 +135,43 @@ export default defineComponent({
 				},
 				);
 				
+			} else {
+				// Firebase web version
+				let get_token = firebase_messaging.getToken({vapidKey: "BACyAFjs1KoHzgCkmXllHlmBBqj6yLbxcJSD4wjxjN-bJKl6zaWSevcaxkanK0RD05GJrPK-1yHodls6kGoaf4w"});
+				
+				get_token.then(
+					function (result) {
+						console.log(this)
+						this.store.token = result
+						lo('🔥 FCM registration token:')
+						lo(this.store.token)
+
+						let get_url = 'https://godcloud.philosofiles.com/?action=report_token&token='+this.store.token+'&user='+this.store.online.user;
+						lo(get_url);
+						godcloud.get(get_url) // no then condition
+
+					},
+					function (error) {
+						lo('🔥 FCM: error getting token')
+						lo(error)
+					}
+				);
+				firebase_messaging.onMessage((message) => {
+					// fn.handle_notification(message.notification)
+					console.log('📨 Message received', message)
+					let msg_data = message.notification.data
+					switch (message.notification.title) {
+						case 'move':
+						case "It's your turn":
+							bus.emit('move', msg_data)
+							break
+						default: { // {} to allow `let`
+							let alert_text = 'Unknown firebase message received: '+JSON.stringify(message.notification)
+							alert(alert_text)
+							break
+						}
+					}
+				})
 			}
 		},
 		deny_notifications() {
@@ -134,6 +187,20 @@ export default defineComponent({
 		}
 	}
 })
+
+
+/*******************
+**	🛠 FUNCTIONS  **
+*******************/
+
+function lo(to_log) { 
+	console.log(to_log) 
+}
+
+function alo(to_log) {
+	bus.emit('debug display', to_log)
+}
+
 </script>
 
 <style>

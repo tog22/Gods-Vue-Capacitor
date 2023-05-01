@@ -97,6 +97,9 @@ export default {
 			required: true,
 			type: Boolean
 		},
+		debug_player: {
+			type: Boolean
+		},
 		online: {
 			type: Object
 		}
@@ -110,19 +113,6 @@ export default {
 
 		if (this.online_screen) {
 			
-			// Start of more direct approach for StackOverflow:
-			
-			// const api = axios.create({
-			// 	baseURL: 'https://godcloud.philosofiles.com/',
-			// 	headers: {
-			// 		'Content-Type': 'application/json',
-			// 	},
-			// });
-
-			// let get_url = // https://godcloud.philosofiles.com/?action=get&game=22&pw=10559
-
-
-			/**/
 			let debug_mode = false
 
 			if (debug_mode) {
