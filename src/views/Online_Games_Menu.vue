@@ -80,11 +80,6 @@
 							</div>
 
 							<div class="s_input">
-								<button type="button" @click="sign_up_button()">
-									Sign up
-								</button>
-							</div>
-							<div class="s_input">
 								<input type="submit" value="Log in" @click="log_in_button()" />
 							</div>
 							<div 

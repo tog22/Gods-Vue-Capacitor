@@ -460,7 +460,8 @@ h1.page_title .s_large {
 	width: 100%;
 }
 
-.form button {
+.form button,
+.form input[type="submit"] {
 	font-size: 24px;
 	padding: 20px 0;
 	width: 100%;
