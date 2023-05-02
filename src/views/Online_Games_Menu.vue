@@ -61,7 +61,7 @@
 					<div id="content">
 						
 						<!-- todo: convert this and signup to forms -->
-						<div class="login form">
+						<form class="login form" @submit="log_in_button()">
 							<div class="input_with_label">
 								<div class="s_label">
 									Username
@@ -78,10 +78,14 @@
 									<input name="pass" id="login_pass" class="pass" type="password" required />
 								</div>
 							</div>
+
 							<div class="s_input">
-								<button type="button" @click="log_in_button()">
-									Log in
+								<button type="button" @click="sign_up_button()">
+									Sign up
 								</button>
+							</div>
+							<div class="s_input">
+								<input type="submit" value="Log in" @click="log_in_button()" />
 							</div>
 							<div 
 								v-if="error"
@@ -91,7 +95,7 @@
 									{{error}}
 								</div>
 							</div>
-						</div>
+						</form>
 
 					</div>
 
@@ -293,7 +297,7 @@ export default defineComponent({
 		
 		return {
 			store: 		store_parent.state,
-			subscreen:	'Initial menu',
+			subscreen:	'Login', // 'Initial menu',
 			error:		false
 		}
 	}

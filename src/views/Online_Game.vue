@@ -141,7 +141,6 @@ export default defineComponent({
 				
 				get_token.then(
 					function (result) {
-						console.log(this)
 						this.store.token = result
 						lo('🔥 FCM registration token:')
 						lo(this.store.token)
@@ -150,7 +149,7 @@ export default defineComponent({
 						lo(get_url);
 						godcloud.get(get_url) // no then condition
 
-					},
+					}.bind(this),
 					function (error) {
 						lo('🔥 FCM: error getting token')
 						lo(error)
@@ -159,11 +158,10 @@ export default defineComponent({
 				firebase_messaging.onMessage((message) => {
 					// fn.handle_notification(message.notification)
 					console.log('📨 Message received', message)
-					let msg_data = message.notification.data
 					switch (message.notification.title) {
 						case 'move':
 						case "It's your turn":
-							bus.emit('move', msg_data)
+							bus.emit('move', message.data)
 							break
 						default: { // {} to allow `let`
 							let alert_text = 'Unknown firebase message received: '+JSON.stringify(message.notification)

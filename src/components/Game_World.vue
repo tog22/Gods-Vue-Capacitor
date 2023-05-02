@@ -1033,10 +1033,19 @@ export default {
 
 		get_game_state(game_id, game_pass) {
 
-			this.dummy_game_state(game_id, game_pass)
-			// var server_request = new XMLHttpRequest()
+			let get_url = 'https://godcloud.philosofiles.com/?action=get&game='+game_id+'&pw='+game_pass
 
-			// let get_url = 'https://godcloud.philosofiles.com/?action=get&game='+game_id+'&pw='+game_pass
+			godcloud.get(get_url).then((response) => {
+				console.log('🔄 got sotw. Response ='+response)
+
+				this.turn = response.turn
+				this.current_player = response.current_player
+				this.sotw = response.sotw
+			})
+
+			// Old synchronous code
+
+			// var server_request = new XMLHttpRequest()
 
 			// server_request.open("GET", get_url, false) // false = synchronous
 			// server_request.send()
