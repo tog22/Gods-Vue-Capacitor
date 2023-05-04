@@ -9,25 +9,14 @@
 *******************/
 
 // External libraries
-import { defineComponent, provide, inject } from 'vue';
-import { Capacitor } from '@capacitor/core';
-import {
-	ActionPerformed,
-	PushNotificationSchema,
-	PushNotifications,
-	Token,
-} from '@capacitor/push-notifications';
-import firebase_messaging from '@/auxiliary/firebase'
+import { defineComponent, provide, inject } from 'vue'
 import { NavigationBar } from '@hugotomazi/capacitor-navigation-bar'
 
 
 // Auxiliaries
 import '@/assets/styles.css'
 import bus from '@/auxiliary/bus'
-import fn from '@/auxiliary/functions'
-import godcloud from '@/auxiliary/api'
 import store from './store/Store'
-import togvue from '@/libraries/togVue'
 
 
 /*********************

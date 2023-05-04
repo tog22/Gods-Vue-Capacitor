@@ -58,6 +58,24 @@ import Game_World from '../components/Game_World.vue'
 **   *️⃣ MAIN CODE   **
 *********************/
 
+if (!Capacitor.isNativePlatform()) {
+	firebase_messaging.onMessage((message) => {
+		// fn.handle_notification(message.notification)
+		console.log('📨 Message received', message)
+		switch (message.notification.title) {
+			case 'move':
+			case "It's your turn":
+				bus.emit('move', message.data)
+				break
+			default: { // {} to allow `let`
+				let alert_text = 'Unknown firebase message received: '+JSON.stringify(message.notification)
+				alert(alert_text)
+				break
+			}
+		}
+	})
+}
+
 export default defineComponent({
 	name: 'Online_Game_Page',
 	components: {
@@ -155,21 +173,6 @@ export default defineComponent({
 						lo(error)
 					}
 				);
-				firebase_messaging.onMessage((message) => {
-					// fn.handle_notification(message.notification)
-					console.log('📨 Message received', message)
-					switch (message.notification.title) {
-						case 'move':
-						case "It's your turn":
-							bus.emit('move', message.data)
-							break
-						default: { // {} to allow `let`
-							let alert_text = 'Unknown firebase message received: '+JSON.stringify(message.notification)
-							alert(alert_text)
-							break
-						}
-					}
-				})
 			}
 		},
 		deny_notifications() {
@@ -179,6 +182,7 @@ export default defineComponent({
 	data() {
         
         const store_parent = inject("store")
+		// store_parent.state.show_notifications_banner = true // for testing - todo: remove
 		return {
 			store: 							store_parent.state,
 			push_notifications_supported: 	true

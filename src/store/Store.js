@@ -3,7 +3,7 @@ import { reactive, watch } from "vue";
 const STATE_NAME = "gods_0.2_datastore";
 
 let store_parent // What'll get exported
-let load_saved_state = false
+let load_saved_state = true 
 
 const default_state = {
 		logged_in: 	        			true,

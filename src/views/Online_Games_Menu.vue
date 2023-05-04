@@ -61,7 +61,7 @@
 					<div id="content">
 						
 						<!-- todo: convert this and signup to forms -->
-						<form class="login form" @submit="log_in_button()">
+						<form class="login form" @submit.prevent="log_in_button()">
 							<div class="input_with_label">
 								<div class="s_label">
 									Username
@@ -80,7 +80,7 @@
 							</div>
 
 							<div class="s_input">
-								<input type="submit" value="Log in" @click="log_in_button()" />
+								<input type="submit" value="Log in" />
 							</div>
 							<div 
 								v-if="error"
@@ -103,7 +103,7 @@
 					</h1>
 
 					<div id="content">
-						<div class="signup form">
+						<form class="signup form" @submit.prevent="sign_up_button()">
 							<div class="input_with_label">
 								<div class="s_label">
 									Username (no spaces)
@@ -121,9 +121,7 @@
 								</div>
 							</div>
 							<div class="s_input">
-								<button type="button" @click="sign_up_button()">
-									Sign up
-								</button>
+								<input type="submit" value="Sign up" />
 							</div>
 							<div 
 								v-if="error"
@@ -133,7 +131,7 @@
 									{{error}}
 								</div>
 							</div>
-						</div>
+						</form>
 					</div>
 
 				</div>
@@ -292,7 +290,7 @@ export default defineComponent({
 		
 		return {
 			store: 		store_parent.state,
-			subscreen:	'Login', // 'Initial menu',
+			subscreen:	'Initial menu', // 'Initial menu',
 			error:		false
 		}
 	}
