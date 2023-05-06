@@ -54,6 +54,49 @@ import Game_World from '../components/Game_World.vue'
 /*********************
 **   *️⃣ MAIN CODE   **
 *********************/
+if (Capacitor.isNativePlatform()) {
+	PushNotifications.addListener(
+		'pushNotificationReceived',
+		(notification) => {
+			// fn.handle_notification(notification)
+			alo('📨 Message received', notification)
+			switch (notification.title) {
+				case 'move':
+				case "It's your turn":
+					bus.emit('move', notification.data)
+					break
+				default: { // {} to allow `let`
+					let alert_text = 'Unknown firebase message received: '+JSON.stringify(notification)
+					alert(alert_text)
+					break
+				}
+			}
+		},
+	);
+	
+	PushNotifications.addListener(
+		'pushNotificationActionPerformed',
+		(notification) => {
+			alert('Push action performed: ' + JSON.stringify(notification));
+		},
+	);
+} else {
+	firebase_messaging.onMessage((message) => {
+		// fn.handle_notification(message.notification)
+		console.log('📨 Message received', message)
+		switch (message.notification.title) {
+			case 'move':
+			case "It's your turn":
+				bus.emit('move', message.data)
+				break
+			default: { // {} to allow `let`
+				let alert_text = 'Unknown firebase message received: '+JSON.stringify(message.notification)
+				alert(alert_text)
+				break
+			}
+		}
+	})
+}
 
 export default defineComponent({
 	name: 'Online_Game_Page',
@@ -94,7 +137,6 @@ export default defineComponent({
 						let get_url = 'https://godcloud.philosofiles.com/?action=report_token&token='+this.store.token+'&user='+this.store.online.user;
 						alo(get_url)
 						godcloud.get(get_url).then((response) => {
-							alert('report token completed')
 							togvue.log(response)
 						})
 					} else {
@@ -106,31 +148,31 @@ export default defineComponent({
 					alert('Error on registration: ' + JSON.stringify(error));
 				});
 				
-				PushNotifications.addListener(
-					'pushNotificationReceived',
-					(notification) => {
-						// fn.handle_notification(notification)
-						alo('📨 Message received', notification)
-						switch (notification.title) {
-							case 'move':
-							case "It's your turn":
-								bus.emit('move', notification.data)
-								break
-							default: { // {} to allow `let`
-								let alert_text = 'Unknown firebase message received: '+JSON.stringify(notification)
-								alert(alert_text)
-								break
-							}
-						}
-					},
-				);
+				// PushNotifications.addListener(
+				// 	'pushNotificationReceived',
+				// 	(notification) => {
+				// 		// fn.handle_notification(notification)
+				// 		alo('📨 Message received', notification)
+				// 		switch (notification.title) {
+				// 			case 'move':
+				// 			case "It's your turn":
+				// 				bus.emit('move', notification.data)
+				// 				break
+				// 			default: { // {} to allow `let`
+				// 				let alert_text = 'Unknown firebase message received: '+JSON.stringify(notification)
+				// 				alert(alert_text)
+				// 				break
+				// 			}
+				// 		}
+				// 	},
+				// );
 				
-				PushNotifications.addListener(
-				'pushNotificationActionPerformed',
-				(notification) => {
-					alert('Push action performed: ' + JSON.stringify(notification));
-				},
-				);
+				// PushNotifications.addListener(
+				// 'pushNotificationActionPerformed',
+				// (notification) => {
+				// 	alert('Push action performed: ' + JSON.stringify(notification));
+				// },
+				// );
 				
 			} else {
 				// Firebase web version
@@ -152,21 +194,6 @@ export default defineComponent({
 						lo(error)
 					}
 				);
-				firebase_messaging.onMessage((message) => {
-					// fn.handle_notification(message.notification)
-					console.log('📨 Message received', message)
-					switch (message.notification.title) {
-						case 'move':
-						case "It's your turn":
-							bus.emit('move', message.data)
-							break
-						default: { // {} to allow `let`
-							let alert_text = 'Unknown firebase message received: '+JSON.stringify(message.notification)
-							alert(alert_text)
-							break
-						}
-					}
-				})
 			}
 		},
 		deny_notifications() {
@@ -176,6 +203,7 @@ export default defineComponent({
 	data() {
         
         const store_parent = inject("store")
+		// store_parent.state.show_notifications_banner = true // for testing - todo: remove
 		return {
 			store: 							store_parent.state,
 			push_notifications_supported: 	true

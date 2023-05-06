@@ -1018,7 +1018,7 @@ export default {
 			if (!this.online_game) {
 				return false
 			}
-
+			
 			if (
 				(this.current_player === 1 && this.store.online.side === 2)
 				||
@@ -1028,6 +1028,24 @@ export default {
 			} else {
 				return false
 			}
+
+			// Alternative code if I need to debug:
+			//
+			// if (this.current_player === 1) {
+			// 	debugger
+			// 	if (this.store.online.side === 2) {
+			// 		return true
+			// 	} else {
+			// 		return false
+			// 	}
+			// } else if (this.current_player === 2) {
+			// 	debugger
+			// 	if (this.store.online.side === 1) {
+			// 		return true
+			// 	} else {
+			// 		return false
+			// 	}
+			// }
 
 		},
 
