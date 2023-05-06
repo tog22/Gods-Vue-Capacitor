@@ -10,14 +10,11 @@
 					class="banner_notification"
 				>
 					<div class="s_text">
-						Would you like to get notified when it's your turn?
+						To play online, you need to allow notifications when the other player takes their turn.
 					</div>
 					<div class="s_options">
 						<div class="s_option" @click="allow_notifications">
-							Yes
-						</div>
-						<div class="s_option" @click="deny_notifications">
-							No
+							Allow
 						</div>
 					</div>
 				</div>

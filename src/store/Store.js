@@ -3,24 +3,24 @@ import { reactive, watch } from "vue";
 const STATE_NAME = "gods_0.2_datastore";
 
 let store_parent // What'll get exported
-let load_saved_state = false
+let load_saved_state = true
 
 const default_state = {
-		logged_in: 	        			true,
+		logged_in: 	        			false,
 		user:			    			null,
 		token:		        			'unset',
 		show_notifications_banner: 		true,
 		online: {
-			// user: 				null,
-			// userpass: 			null,
-			// game_id: null,
-			// game_pass: null,
-			// side: null,
-			user: 				'Tomek',
-			userpass: 			'pass22',
-			game_id: 			22,
-			game_pass: 			10559,
-			side: 				1,
+			user: 				null,
+			userpass: 			null,
+			game_id: null,
+			game_pass: null,
+			side: null,
+			// user: 				'Tomek',
+			// userpass: 			'pass22',
+			// game_id: 			22,
+			// game_pass: 			10559,
+			// side: 				1,
 			subscreen: 			'user menu', // default = 'user menu'
 			error: 				null,
 			login_error: 		null,

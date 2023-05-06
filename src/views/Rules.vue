@@ -65,13 +65,6 @@ export default defineComponent({
 	components: {
 		Menu_Bar
 	},
-	created() {
-		godcloud.get('https://godcloud.philosofiles.com/?action=list_games&username=Tomek&userpass=pass').then((response) => {
-			console.log('gc resp = ',response)
-			togvue.log('gc done')
-			togvue.log(tog.debugging.dump(response.data))
-		})
-	},
     methods: {
 		next_page() {
 			const last_page = 16

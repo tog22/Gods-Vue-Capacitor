@@ -60,8 +60,7 @@
 					
 					<div id="content">
 						
-						<!-- todo: convert this and signup to forms -->
-						<form class="login form" @submit="log_in_button()">
+						<form class="login form" @submit.prevent="log_in_button()">
 							<div class="input_with_label">
 								<div class="s_label">
 									Username
@@ -80,7 +79,7 @@
 							</div>
 
 							<div class="s_input">
-								<input type="submit" value="Log in" @click="log_in_button()" />
+								<input type="submit" value="Log in" />
 							</div>
 							<div 
 								v-if="error"
@@ -103,7 +102,7 @@
 					</h1>
 
 					<div id="content">
-						<div class="signup form">
+						<form class="signup form" @submit.prevent="sign_up_button()">
 							<div class="input_with_label">
 								<div class="s_label">
 									Username (no spaces)
@@ -121,9 +120,7 @@
 								</div>
 							</div>
 							<div class="s_input">
-								<button type="button" @click="sign_up_button()">
-									Sign up
-								</button>
+								<input type="submit" value="Sign up" />
 							</div>
 							<div 
 								v-if="error"
@@ -133,7 +130,7 @@
 									{{error}}
 								</div>
 							</div>
-						</div>
+						</form>
 					</div>
 
 				</div>
@@ -231,34 +228,32 @@ export default defineComponent({
 			let user = document.getElementById('signup_user').value
 			let pw = document.getElementById('signup_pass').value
 			
-			var server_request = new XMLHttpRequest()
-			
 			let get_url = 'https://godcloud.philosofiles.com/?action=signup&username='+user+'&pw='+pw
-			//lo(get_url)
-			
-			server_request.open("GET", get_url, false)
-			server_request.send()
-			
-			const response = JSON.parse(server_request.responseText)
-			lo(response)
-			
-			if (response.result === 'success') {
-				
-				this.store.online.user = user
-				// ↓ Done when user proceeds to Online_Game.vue instead
-				// this.report_token(user, this.store.token)
-				this.subscreen = 'Initial menu'
-				
-			} else if (response.result === "sql error") {
-				if (response.error_number === '1062') {
-					this.error='Username already taken'
-				} else {
-					this.error='Unknown SQL error'
+
+			godcloud.get(get_url).then((response) => {
+				bus.emit('debug display', 'signup .then response: '+JSON.stringify(response))
+				if (response.hasOwnProperty('result')) { 
+					switch (response.result) {
+						case 'success':
+							this.store.online.user = user
+							this.store.online.userpass = pw
+							// ↓ Done when user proceeds to Online_Game.vue instead
+							// this.report_token(user, this.store.token) 
+							this.subscreen = 'Initial menu'
+							break
+						case 'sql error':
+						if (response.error_number === '1062') {
+							this.error='Username already taken'
+						} else {
+							this.error='Unknown SQL error'
+						}
+							break
+						default:
+						this.error='Unknown non-SQL error'
+							break
+					}
 				}
-			} else {
-				// todo: general error message
-				this.error='Unknown non-SQL error'
-			}
+			})
 			
 		},
 		report_token(user, token) {
@@ -292,7 +287,7 @@ export default defineComponent({
 		
 		return {
 			store: 		store_parent.state,
-			subscreen:	'Login', // 'Initial menu',
+			subscreen:	'Initial menu', // 'Initial menu'/'Login',
 			error:		false
 		}
 	}
