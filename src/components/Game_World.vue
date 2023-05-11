@@ -4,7 +4,7 @@
 			Loading...
 		</div>
 	</div>
-	<div v-else class="game_world">
+	<div v-else-if="!winner" class="game_world">
 		<div id="dialog">
 			ello ello
 		</div>
@@ -64,8 +64,33 @@
 			</div>
 		</div>
     </div>
+	<div v-else-if="winner" id="end_game">
+		<div class="s_container">
+			<div v-if="game_type === 'online' && winner !== store.online.side">
+				<div id="victory">
+					Defeat!
+				</div>
+				<div id="type_of_victory">
+					You have lost
+				</div>
+			</div>
+			<div v-else>
+				<div id="victory">
+					Victory!
+				</div>
+				<div id="type_of_victory">
+					You have won
+				</div>
+			</div>
+			<router-link 
+				class="button" 
+				to="/"
+			>
+				Back to menu
+			</router-link>
+		</div>
+	</div>
 </template>
-
 <script>
 
 /*******************
@@ -272,7 +297,7 @@ export default {
 						this.inspiration_has_moved = true
 						selected.divinely_inspired = false
 						clicked.divinely_inspired = true
-						this.check_for_trap(this.selected_row, this.selected_col)
+						// this.check_for_trap(this.selected_row, this.selected_col)
 						this.check_for_reaching_heartland(clicked)
 
 					} else if (selected.occupant === 'mortal') {
@@ -532,30 +557,30 @@ export default {
 
 			let adjacent_cells = this.get_adjacent_cells(row, col)
 
-			lo('____ TRACE ADJACENT TO '+row+'-'+col)
+			// lo('____ TRACE ADJACENT TO '+row+'-'+col)
 
 			for (var adj of adjacent_cells) {
 
-				lo('__IN LOOP FOR '+row+'-'+col)
-				lo('checking '+adj.row+'-'+adj.col)
+				// lo('__IN LOOP FOR '+row+'-'+col)
+				// lo('checking '+adj.row+'-'+adj.col)
 				if (path_trace_tracker.visited[adj.row][adj.col]) { // f1
-					lo('…visited')
+					// lo('…visited')
 					continue
 				}
 				path_trace_tracker.visited[adj.row][adj.col] = true
 
 				if (this.sotw[adj.row][adj.col].side !== this.current_player) { // f2
-					lo('…empty')
+					// lo('…empty')
 					continue
 				}
 
 				if (this.sotw[adj.row][adj.col].divinely_inspired) {
 					path_trace_tracker.reached_inspiration = true
-					lo('••• DIVINE INSPIRATION FOUND •••')
+					// lo('••• DIVINE INSPIRATION FOUND •••')
 				}
 
 				// Otherwise…
-				lo('…neither visited nor empty, so starting subtrace')
+				// lo('…neither visited nor empty, so starting subtrace')
 				this.trace_adjacent_cells(adj.row, adj.col, path_trace_tracker)
 
 			}
@@ -824,7 +849,9 @@ export default {
 		**						  **
 		****************************
 		***************************/
+
 		unselect_piece() {
+
 			// Deselect the square moved from
 			this.sotw[this.selected_row][this.selected_col].is_selected = '';
 
@@ -836,20 +863,20 @@ export default {
 			// Reset the deltas for neatness
 			this.row_delta = null;
 			this.col_delta = null;
+
 		},
+
 		check_for_reaching_heartland(moved_to) {
+
 			if (moved_to.heartland === undefined) {
 				return
 			}
+
 			switch (moved_to.heartland) {
 				case 1:
 					if (this.current_player === 2) {
 						this.winner = 2
 						this.win_type = 'Heartland reached'
-						bus.emit('Winner', {
-							winner: 2,
-							win_type: 'Heartland reached'
-						})
 						if (this.online_game) {
 							this.send_turn();
 						}
@@ -859,17 +886,15 @@ export default {
 					if (this.current_player === 1) {
 						this.winner = 1
 						this.win_type = 'Heartland reached'
-						bus.emit('Winner', {
-							winner: 1,
-							win_type: 'Heartland reached'
-						})
 						if (this.online_game) {
 							this.send_turn();
 						}
 					}
 					break;
 			}
+
 		},
+
 		check_for_trap(to_row, to_col) {
 
 			let squares_to_check_for_trap = this.squares_to_check_for_trap(to_row, to_col)
@@ -881,6 +906,7 @@ export default {
 			} else {
 				opponent = 1
 			}
+
 			for (var square of squares_to_check_for_trap) {
 				if (this.sotw[square.adj_row][square.adj_col].side === opponent) {
 
@@ -893,10 +919,6 @@ export default {
 							this.winner = this.current_player
 							this.win_type = 'Faith extinguished'
 							this.sotw[square.adj_row][square.adj_col].divinely_inspired = false
-							bus.emit('Winner', {
-								winner: this.current_player,
-								win_type: 'Faith extinguished'
-							})
 							if (this.online_game) {
 								this.send_turn();
 							}
@@ -908,6 +930,7 @@ export default {
 			}
 
 		},
+
 		squares_to_check_for_trap(row, col) {
 
 			var at_top = false
@@ -976,6 +999,10 @@ export default {
 
         },
 
+		show_end_game() {
+			
+		},
+
 		end_turn(atclick_var = null, by_opponent = false) {
 
 			switch (this.current_player) {
@@ -1038,24 +1065,6 @@ export default {
 			} else {
 				return false
 			}
-
-			// Alternative code if I need to debug:
-			//
-			// if (this.current_player === 1) {
-			// 	debugger
-			// 	if (this.store.online.side === 2) {
-			// 		return true
-			// 	} else {
-			// 		return false
-			// 	}
-			// } else if (this.current_player === 2) {
-			// 	debugger
-			// 	if (this.store.online.side === 1) {
-			// 		return true
-			// 	} else {
-			// 		return false
-			// 	}
-			// }
 
 		},
 
@@ -1197,6 +1206,14 @@ export default {
 				return 'won'
 			} else {
 				return 'active'
+			}
+		},
+
+		show_game_world: function() {
+			if (!this.winner) {
+				return 'shown'
+			} else {
+				return 'hidden'
 			}
 		},
 
