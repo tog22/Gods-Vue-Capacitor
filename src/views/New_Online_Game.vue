@@ -8,7 +8,7 @@
 					Continue
 				</h1> -->
 				
-				<div class="form">
+				<form class="form" @submit.prevent="select_opponent">
 
 					<div class="input_with_label">
 						<div class="s_label">
@@ -19,9 +19,7 @@
 						</div>
 					</div>
 					<div class="s_input">
-						<button type="button" @click="select_opponent">
-							Start game
-						</button>
+						<input type="submit" value="Start game" />
 					</div>
 
 					<div 
@@ -33,7 +31,7 @@
 						</div>
 					</div>
 
-				</div>
+				</form>
 
 			</div>
 		</div>
@@ -78,11 +76,8 @@ export default defineComponent({
 			let get_url = 'https://godcloud.philosofiles.com/?action=find_user&user='+opp
 			lo(get_url)
 
-			godcloud.get(get_url).then((api_response) => {
+			godcloud.get(get_url).then((response) => {
 				
-				const response = JSON.parse(api_response)
-				console.log(response)
-
 				if (response.result === 'failure') {
 					this.error = 'Opponent not found'
 				} else if (response.result === 'success') {
@@ -90,12 +85,10 @@ export default defineComponent({
 					let pw = Math.floor(Math.random() * 32000)
 
 					let second_get_url = 'https://godcloud.philosofiles.com/?action=create&pw='+pw+'&p1='+this.store.online.user+'&p2='+opp
-					godcloud.get(second_get_url).then((api_response) => {
+					godcloud.get(second_get_url).then((response) => {
 						
-						const response = JSON.parse(api_response)
-
 						if (response.result === 'success') {
-							this.store.online.side =  1
+							this.store.online.side =  2
 							this.store.online.game_id = response.game_id
 							this.store.online.game_pass = pw
 							this.$router.push('/online/play')

@@ -22,7 +22,7 @@
 			<div id="bz_content">
 				<div id="info_bar">
 					<div id="item_flex_container">
-						<div 
+						<!-- <div 
                             class="s_item piece" 
                             :class="has_piece_moved"
                             @click="end_turn"
@@ -41,7 +41,7 @@
 							<div class="s_badge" v-else>
 								🔑
 							</div>
-						</div>
+						</div> -->
 						<div class="current_player s_item">
 							<span v-html="current_player_image"></span>
 						</div>
@@ -494,6 +494,12 @@ export default {
 
 			let path_trace_tracker = {}
 
+			// First just check there's a piece on the destination
+
+			if (!this.sotw[to_row][to_col].occupant || this.sotw[to_row][to_col].occupant.player !== this.player ) {
+				return false
+			}
+
 			// Create tracker for visited places
 
 			let visited = []
@@ -522,30 +528,30 @@ export default {
 
 			let adjacent_cells = this.get_adjacent_cells(row, col)
 
-			// lo('____ TRACE ADJACENT TO '+row+'-'+col)
+			lo('____ TRACE ADJACENT TO '+row+'-'+col)
 
 			for (var adj of adjacent_cells) {
 
-				// lo('__IN LOOP FOR '+row+'-'+col)
-				// lo('checking '+adj.row+'-'+adj.col)
+				lo('__IN LOOP FOR '+row+'-'+col)
+				lo('checking '+adj.row+'-'+adj.col)
 				if (path_trace_tracker.visited[adj.row][adj.col]) { // f1
-					// lo('…visited')
+					lo('…visited')
 					continue
 				}
 				path_trace_tracker.visited[adj.row][adj.col] = true
 
 				if (this.sotw[adj.row][adj.col].side !== this.current_player) { // f2
-					// lo('…empty')
+					lo('…empty')
 					continue
 				}
 
 				if (this.sotw[adj.row][adj.col].divinely_inspired) {
 					path_trace_tracker.reached_inspiration = true
-					// lo('••• DIVINE INSPIRATION FOUND •••')
+					lo('••• DIVINE INSPIRATION FOUND •••')
 				}
 
 				// Otherwise…
-				// lo('…neither visited nor empty, so starting subtrace')
+				lo('…neither visited nor empty, so starting subtrace')
 				this.trace_adjacent_cells(adj.row, adj.col, path_trace_tracker)
 
 			}
@@ -1217,7 +1223,7 @@ export default {
 		
 		// ↓ Initial values - for online games these get updated in created(). They can't be set here because GodCloud is asyncronous.
         let turn = 1
-        let current_player = 1
+        let current_player = 2
         let sotw = starting_sotw
 		let online_is_loading = false
 
@@ -1231,7 +1237,7 @@ export default {
             current_player: 		current_player,
             piece_has_moved: 		false,
             inspiration_has_moved: 	false,
-            inspiration_locked: 	false,
+            inspiration_locked: 	true,
             selected_row: 			null,
             selected_col: 			null,
             row_delta: 				null,
