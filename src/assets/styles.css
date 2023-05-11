@@ -158,6 +158,7 @@ body {
 	display: flex;
 	flex-grow: 1;
 	flex-direction: column;
+	position: relative; /* for dialog */
 }
 
 
@@ -693,6 +694,11 @@ from SCSS
 	margin-right: 0
 }
 
+.next_turn img {
+	width: 25px;
+	height: 25px;
+}
+
 #info_bar .current_player.s_item {
 	padding: 3px 8px
 }
@@ -797,3 +803,20 @@ $("#info_bar .current_player.s_item").on(
 );
 
 */
+
+
+/**************************/
+/* DIALOG
+/**************************/
+
+#dialog {
+	
+	position: absolute;
+	z-index: 2;
+
+	background-color: blue;
+	color: white;
+	font-weight: bold;
+
+	margin: 0 auto;
+}

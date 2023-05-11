@@ -5,6 +5,9 @@
 		</div>
 	</div>
 	<div v-else class="game_world">
+		<div id="dialog">
+			ello ello
+		</div>
 		<table class="board">
 			<tr v-for="(row, row_index) in sotw" :key="'r'+row_index">
 				<Square
@@ -45,10 +48,11 @@
 						<div class="current_player s_item">
 							<span v-html="current_player_image"></span>
 						</div>
-						<div class="next_turn s_item s_text_only" @click="end_turn">
-							<div class="s_text">
+						<div class="next_turn s_item" @click="end_turn"><!-- was s_text_only -->
+							<img alt="End turn" src="/images/green_tick.png" />
+							<!-- <div class="s_text">
 								End Turn
-							</div>
+							</div> -->
 						</div>
                         <!--
 						<div class="s_item" @click="end_turn">
@@ -183,7 +187,7 @@ export default {
 		square_click(row, col) {
 
 			if (this.waiting_online()) {
-				alert('Waiting for other player');
+				// alert('Waiting for other player');
 				return;
 			}
 
@@ -302,7 +306,7 @@ export default {
 					}
 
 				} else {
-					alert("Not a valid move");
+					// alert("Not a valid move");
 				}
 
 			}
@@ -1106,10 +1110,7 @@ export default {
 			this.winner = update.winner
 			this.win_type = update.win_type
 
-			if (this.winner) {
-				// Todo
-				alert('X won! Fill this info in')
-			}
+			// Not needed, defeat screen will show: if (this.winner) {}
 
 		},
 
