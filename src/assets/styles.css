@@ -825,12 +825,46 @@ $("#info_bar .current_player.s_item").on(
 
 #dialog {
 	
-	position: absolute;
 	z-index: 2;
+	position: absolute;
+	left: 0;
+	right: 0;
+	margin-left: auto;
+	margin-right: auto;
+	top: calc(50% - 20px); /* 20px is half the menu bar */
+	transform: translateY(-50%);
 
-	background-color: blue;
+	width: max-content;
+	max-width: 50%;
+	height: max-content;
+
+	background-color: #718DAA;
 	color: white;
 	font-weight: bold;
+	text-align: center;
 
-	margin: 0 auto;
+	padding: 1em 2em;
+	border-radius: 5px;
+	box-shadow: 3px 3px 3px gray;
+
+}
+
+#dialog p:first-child {
+	margin-top: 0;
+}
+
+#dialog p:last-child {
+	margin-bottom: 0;
+}
+
+#dialog .dialog_buttons {
+	text-transform: uppercase;
+}
+
+#dialog .dialog_buttons a {
+	margin-right: 1.5em;
+}
+
+#dialog .dialog_buttons a:last-child {
+	margin-right: 0;
 }

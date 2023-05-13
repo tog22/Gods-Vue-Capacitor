@@ -5,8 +5,14 @@
 		</div>
 	</div>
 	<div v-else-if="!winner" class="game_world">
-		<div id="dialog">
-			ello ello
+		<div v-if="show_restart_dialog" id="dialog">
+			<p>
+				Are you sure you want to restart the game?
+			</p>
+			<p class="dialog_buttons">
+				<a @click="restart_game">Yes</a>
+				<a @click="show_restart_dialog = false">No</a>
+			</p>
 		</div>
 		<table class="board">
 			<tr v-for="(row, row_index) in sotw" :key="'r'+row_index">
@@ -49,7 +55,7 @@
 							<span v-html="current_player_image"></span>
 						</div>
 						<div class="next_turn s_item" @click="end_turn"><!-- was s_text_only -->
-							<img alt="End turn" src="/images/green_tick.png" />
+							<img alt="End turn" src="/images/tick_green_desat.png" />
 							<!-- <div class="s_text">
 								End Turn
 							</div> -->
@@ -198,6 +204,10 @@ export default {
                 this.online_game = data.online_game
             }
         })
+
+		bus.on('toggle restart dialog', (data) => {
+			this.show_restart_dialog = !this.show_restart_dialog
+		})
 
     },
     
@@ -1168,6 +1178,23 @@ export default {
 
 			lo(this.sotw)
 
+		},
+
+		restart_game() {
+			this.turn = 					1
+			this.current_player = 			2
+			this.sotw = 					starting_sotw
+			this.piece_has_moved = 			false
+			this.inspiration_has_moved = 	false
+			this.inspiration_locked = 		true
+			this.selected_row = 			null
+			this.selected_col = 			null
+			this.row_delta = 				null
+			this.col_delta = 				null
+			this.winner =					null
+			this.win_type = 				null
+			this.show_restart_dialog =		false
+			lo(this.sotw)
 		}
 
 	},
@@ -1264,6 +1291,7 @@ export default {
             win_type: 				null,
             online_game:			this.online_screen,
 			online_is_loading:		online_is_loading,
+			show_restart_dialog:	false,
             sotw: 					sotw,
         }
 

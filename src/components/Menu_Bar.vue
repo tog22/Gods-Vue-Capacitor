@@ -13,7 +13,7 @@
 	<div class="s_right">
         <span 
 			v-if="$route.name == 'Pass & Play'" 
-			@click="restart"
+			@click="restart_button"
 			class="s_button"
 		>
 			🔄
@@ -59,7 +59,10 @@ export default {
 		},
 		dev_button() {
             bus.emit('toggle debug display', null)
-        }
+        },
+		restart_button() {
+			bus.emit('toggle restart dialog', null)
+		}
     }
 }
 </script>
