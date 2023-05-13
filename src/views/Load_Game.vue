@@ -4,7 +4,7 @@
 			<Menu_Bar />
 			<div id="inner_selecting_online">
 				
-				<h1 class="page_title">
+				<h1 v-if="store.online.has_current_games" class="page_title">
 					Continue
 				</h1>
 				
@@ -21,7 +21,7 @@
 
 				<div v-else>
 					<div class="no_current_games">
-						No current games
+						You have no active games
 					</div>
 				</div>
 				
@@ -78,7 +78,8 @@ export default defineComponent({
 			console.log('gc resp = ',response)
 			togvue.log(tog.debugging.dump(response.data))
 			if (response.result === 'failure' || !response.games_found) {
-				alert("You don't have any active games")
+				this.store.online.games = []
+				this.store.online.has_current_games = false
 			} else {
 				this.store.online.games = response.games
 			}
