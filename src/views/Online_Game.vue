@@ -93,7 +93,7 @@ if (Capacitor.isNativePlatform()) {
 				bus.emit('move', message.data)
 				break
 			case 'Game invitation':
-				bus.emit('game_invitation', notification.data)
+				bus.emit('game_invitation', message.notification.data)
 				break
 			default: { // {} to allow `let`
 				let alert_text = 'Unknown firebase message received: '+JSON.stringify(message.notification)
