@@ -8,6 +8,9 @@ const fn = {
 			case "It's your turn":
 				bus.emit('move', notification.data)
 				break
+			case 'Game invitation':
+				bus.emit('game_invitation', notification.data)
+				break
 			default: { // {} to allow `let`
 				let alert_text = 'Unknown firebase message received: '+JSON.stringify(notification)
 				alert(alert_text)

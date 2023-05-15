@@ -82,6 +82,7 @@ export default defineComponent({
 				this.store.online.has_current_games = false
 			} else {
 				this.store.online.games = response.games
+				this.store.online.has_current_games = true
 			}
 
 		})
