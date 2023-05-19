@@ -153,7 +153,7 @@ export default {
 			if (debug_mode) {
 				this.turn = 1
 				this.current_player = 1
-				this.sotw = starting_sotw
+				this.sotw = JSON.parse(JSON.stringify(starting_sotw))
 			}
  			
 			let get_url = 'https://godcloud.philosofiles.com/?action=get&game='+this.store.online.game_id+'&pw='+this.store.online.game_pass
@@ -1107,7 +1107,7 @@ export default {
 		dummy_game_state(game_id = null, game_pass = null) {
 			this.turn = 1
 			this.current_player = 1
-			this.sotw = starting_sotw
+			this.sotw = JSON.parse(JSON.stringify(starting_sotw))
 		},
 
 		on_fcm_update_received(update) {
@@ -1183,7 +1183,7 @@ export default {
 		restart_game() {
 			this.turn = 					1
 			this.current_player = 			2
-			this.sotw = 					starting_sotw
+			this.sotw = 					JSON.parse(JSON.stringify(starting_sotw))
 			this.piece_has_moved = 			false
 			this.inspiration_has_moved = 	false
 			this.inspiration_locked = 		true
@@ -1269,7 +1269,7 @@ export default {
 		// ↓ Initial values - for online games these get updated in created(). They can't be set here because GodCloud is asyncronous.
         let turn = 1
         let current_player = 2
-        let sotw = starting_sotw
+        let sotw = JSON.parse(JSON.stringify(starting_sotw))
 		let online_is_loading = false
 
 		if (this.online_screen) {
