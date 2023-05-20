@@ -110,8 +110,91 @@ export default defineComponent({
 		Menu_Bar,
         Game_World
 	},
-	setup() {
+	created() {
+		/******************
+			**  🔥 FIREBASE  **
+			******************/
 
+			if (Capacitor.isNativePlatform()) {
+			
+			PushNotifications.requestPermissions().then(result => {
+				if (result.receive === 'granted') {
+					// Register with Apple / Google to receive push via APNS/FCM
+					// alert('Push notifications are enabled')
+					PushNotifications.register();
+					alo('ran PushNotifications.register()')
+				} else {
+					// alert('Push notifications are not enabled')
+				}
+			});
+			
+			PushNotifications.addListener('registration', (token) => {
+				if (this.store.logged_in) {
+					this.store.token = token.value
+					let get_url = 'https://godcloud.philosofiles.com/?action=report_token&token='+this.store.token+'&user='+this.store.online.user;
+					alo(get_url)
+					godcloud.get(get_url).then((response) => {
+						togvue.log(response)
+					})
+				} else {
+					alert('error: not logged in')
+				}
+			});
+			
+			PushNotifications.addListener('registrationError', (error) => {
+				alert('Error on registration: ' + JSON.stringify(error));
+			});
+			
+			// PushNotifications.addListener(
+			// 	'pushNotificationReceived',
+			// 	(notification) => {
+			// 		// fn.handle_notification(notification)
+			// 		alo('📨 Message received', notification)
+			// 		switch (notification.title) {
+			// 			case 'move':
+			// 			case "It's your turn":
+			// 				bus.emit('move', notification.data)
+			// 				break
+			// 			default: { // {} to allow `let`
+			// 				let alert_text = 'Unknown firebase message received: '+JSON.stringify(notification)
+			// 				alert(alert_text)
+			// 				break
+			// 			}
+			// 		}
+			// 	},
+			// );
+			
+			// PushNotifications.addListener(
+			// 'pushNotificationActionPerformed',
+			// (notification) => {
+			// 	alert('Push action performed: ' + JSON.stringify(notification));
+			// },
+			// );
+			
+		} else {
+			// Firebase web version
+			let get_token = firebase_messaging.getToken({vapidKey: "BACyAFjs1KoHzgCkmXllHlmBBqj6yLbxcJSD4wjxjN-bJKl6zaWSevcaxkanK0RD05GJrPK-1yHodls6kGoaf4w"});
+			
+			get_token.then(
+				function (result) {
+					this.store.token = result
+					lo('🔥 FCM registration token:')
+					lo(this.store.token)
+
+					let get_url = 'https://godcloud.philosofiles.com/?action=report_token&token='+this.store.token+'&user='+this.store.online.user;
+					lo(get_url);
+					godcloud.get(get_url) // no then condition
+
+				}.bind(this),
+				function (error) {
+					lo('🔥 FCM: error getting token')
+					lo(error)
+				}
+			);
+		}
+		/***********************
+		**  /end FIREBASE 🔥  **
+		***********************/
 	},
 	methods: {
 		allow_notifications() {
@@ -125,83 +208,11 @@ export default defineComponent({
 			**  🔥 FIREBASE  **
 			******************/
 
-			if (Capacitor.isNativePlatform()) {
 			
-				PushNotifications.requestPermissions().then(result => {
-					if (result.receive === 'granted') {
-						// Register with Apple / Google to receive push via APNS/FCM
-						// alert('Push notifications are enabled')
-						PushNotifications.register();
-						alo('ran PushNotifications.register()')
-					} else {
-						// alert('Push notifications are not enabled')
-					}
-				});
-				
-				PushNotifications.addListener('registration', (token) => {
-					if (this.store.logged_in) {
-						this.store.token = token.value
-						let get_url = 'https://godcloud.philosofiles.com/?action=report_token&token='+this.store.token+'&user='+this.store.online.user;
-						alo(get_url)
-						godcloud.get(get_url).then((response) => {
-							togvue.log(response)
-						})
-					} else {
-						alert('error: not logged in')
-					}
-				});
-				
-				PushNotifications.addListener('registrationError', (error) => {
-					alert('Error on registration: ' + JSON.stringify(error));
-				});
-				
-				// PushNotifications.addListener(
-				// 	'pushNotificationReceived',
-				// 	(notification) => {
-				// 		// fn.handle_notification(notification)
-				// 		alo('📨 Message received', notification)
-				// 		switch (notification.title) {
-				// 			case 'move':
-				// 			case "It's your turn":
-				// 				bus.emit('move', notification.data)
-				// 				break
-				// 			default: { // {} to allow `let`
-				// 				let alert_text = 'Unknown firebase message received: '+JSON.stringify(notification)
-				// 				alert(alert_text)
-				// 				break
-				// 			}
-				// 		}
-				// 	},
-				// );
-				
-				// PushNotifications.addListener(
-				// 'pushNotificationActionPerformed',
-				// (notification) => {
-				// 	alert('Push action performed: ' + JSON.stringify(notification));
-				// },
-				// );
-				
-			} else {
-				// Firebase web version
-				let get_token = firebase_messaging.getToken({vapidKey: "BACyAFjs1KoHzgCkmXllHlmBBqj6yLbxcJSD4wjxjN-bJKl6zaWSevcaxkanK0RD05GJrPK-1yHodls6kGoaf4w"});
-				
-				get_token.then(
-					function (result) {
-						this.store.token = result
-						lo('🔥 FCM registration token:')
-						lo(this.store.token)
+			/***********************
+			**  /end FIREBASE 🔥  **
+			***********************/
 
-						let get_url = 'https://godcloud.philosofiles.com/?action=report_token&token='+this.store.token+'&user='+this.store.online.user;
-						lo(get_url);
-						godcloud.get(get_url) // no then condition
-
-					}.bind(this),
-					function (error) {
-						lo('🔥 FCM: error getting token')
-						lo(error)
-					}
-				);
-			}
 		},
 		deny_notifications() {
 			this.store.show_notifications_banner = false
@@ -213,7 +224,7 @@ export default defineComponent({
 		// store_parent.state.show_notifications_banner = true // for testing - todo: remove
 		return {
 			store: 							store_parent.state,
-			temp_show_notifications_banner: 	true,
+			temp_show_notifications_banner: 	false,
 			push_notifications_supported: 	true
 		}
 	}

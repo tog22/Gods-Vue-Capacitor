@@ -1,14 +1,17 @@
 <template>
 	<div class="game_world_root mob_style dev">
 		<div id="home_menu" class="screen">
-			<h1 class="page_title">
+			<!-- <h1 class="page_title">
 				<span class="s_small">
 					Path of the
 				</span>
 				<span class="s_large">
 					Gods
 				</span>
-			</h1>
+			</h1> -->
+			<div id="logo">
+				<img src="/images/torchbearers_logo.png" />
+			</div>
 			<div id="menu_buttons">
 				<router-link 
 					class="button" 
@@ -59,3 +62,16 @@ export default {
 	}
 }
 </script>
+
+<style>
+
+#logo {
+	text-align: center;
+	margin-bottom: 22px;
+}
+
+#logo img {
+	width: 273px;
+}
+
+</style>

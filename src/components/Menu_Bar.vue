@@ -7,7 +7,7 @@
 	</div>
 	<div class="s_middle">
 		<h1>
-			Path of the Gods
+			Torchbearers
 		</h1>
 	</div>
 	<div class="s_right">

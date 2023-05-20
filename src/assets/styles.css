@@ -496,7 +496,12 @@ h1.page_title .s_large {
 a.button {
 	display: block;
 	
-	background-image: linear-gradient(to right, #84fab0 0%, #8fd3f4 51%, #84fab0 100%);
+	/* background-image: linear-gradient(to right, #84fab0 0%, #8fd3f4 51%, #84fab0 100%); */
+	
+	background-image: linear-gradient(to right, rgb(227,128,60) 0%, rgb(218,56,50) 51%, rgb(227,128,60) 100%); 
+	
+	/* paler orange:
+	background-image: linear-gradient(to right, rgb(235,156,74) 0%, rgb(218,56,50) 51%, rgb(235,156,74) 100%); */
 	flex: 1 1 auto;
 	margin: 10px 10px 22px;
 	padding: 15px 30px;
