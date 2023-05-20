@@ -60,11 +60,9 @@
 								End Turn
 							</div> -->
 						</div>
-                        <!--
-						<div class="s_item" @click="end_turn">
-							🇹🇰
+						<div class="s_item" style="max-width: 80px; font-size: 0.7em; overflow: hidden;">
+							🇹{{  store.token }}
 						</div>
-                        -->
 					</div>
 				</div>
 			</div>

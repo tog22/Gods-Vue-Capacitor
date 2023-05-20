@@ -85,8 +85,10 @@ export default defineComponent({
 					let pw = Math.floor(Math.random() * 32000)
 
 					let second_get_url = 'https://godcloud.philosofiles.com/?action=create&pw='+pw+'&p1='+this.store.online.user+'&p2='+opp
+					lo(second_get_url)
+
 					godcloud.get(second_get_url).then((response) => {
-						
+						lo(response)
 						if (response.result === 'success') {
 							this.store.online.side =  2
 							this.store.online.game_id = response.game_id

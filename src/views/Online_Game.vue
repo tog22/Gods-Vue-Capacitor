@@ -5,10 +5,10 @@
 			<Game_World :online_screen="true"  />
 			<div id="permission_request_container">
 				<div 
-					v-if="store.show_notifications_banner && push_notifications_supported"
+					v-if="temp_show_notifications_banner"
 					id="permission_request" 
 					class="banner_notification"
-				>
+				><!-- v-if="store.show_notifications_banner && push_notifications_supported" -->
 					<div class="s_text">
 						To play online, you need to allow notifications when the other player takes their turn.
 					</div>
@@ -119,6 +119,7 @@ export default defineComponent({
 			if (this.push_notifications_supported) {
 				this.store.show_notifications_banner = false
 			}
+			this.temp_show_notifications_banner = false
 
 			/******************
 			**  🔥 FIREBASE  **
@@ -212,6 +213,7 @@ export default defineComponent({
 		// store_parent.state.show_notifications_banner = true // for testing - todo: remove
 		return {
 			store: 							store_parent.state,
+			temp_show_notifications_banner: 	true,
 			push_notifications_supported: 	true
 		}
 	}
