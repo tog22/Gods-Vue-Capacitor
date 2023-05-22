@@ -722,6 +722,10 @@ from SCSS
 	padding: 3px 8px
 }
 
+.cpi {
+	border-radius: 4px;
+}
+
 .cpi.baboon {
 	font-size: 120%;
 	margin-right: 2px

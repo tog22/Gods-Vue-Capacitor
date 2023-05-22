@@ -1,4 +1,4 @@
-# ⚡️ Gods
+# ⚡️ Torchbearers
 
 ## Project setup
 ```
@@ -12,6 +12,14 @@ npm run build
 npx cap sync
 npx cap run android
 ```
+
+#### Generating icons
+```
+npm run resources
+```
+
+Based on contents of resources directory.
+
 
 ## Standard Vue commands
 
