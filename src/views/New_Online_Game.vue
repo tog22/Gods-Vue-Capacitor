@@ -82,9 +82,10 @@ export default defineComponent({
 					this.error = 'Opponent not found'
 				} else if (response.result === 'success') {
 
+					let capitalized_opponent = response.body.username_with_caps
 					let pw = Math.floor(Math.random() * 32000)
 
-					let second_get_url = 'https://godcloud.philosofiles.com/?action=create&pw='+pw+'&p1='+this.store.online.user+'&p2='+opp
+					let second_get_url = 'https://godcloud.philosofiles.com/?action=create&pw='+pw+'&p1='+this.store.online.user+'&p2='+capitalized_opponent
 					lo(second_get_url)
 
 					godcloud.get(second_get_url).then((response) => {

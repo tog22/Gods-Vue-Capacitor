@@ -104,6 +104,7 @@
 // External libraries
 import { inject } from 'vue'
 import axios from 'axios'; // for temp test
+import $ from 'jquery'
 
 // Auxiliaries
 import api from '@/auxiliary/api'
@@ -243,7 +244,17 @@ export default {
 				}
 
 				if (clicked.side !== this.current_player) {
-					alert ("It's not this player's turn");
+					
+					$("#info_bar .current_player").addClass("pulse")
+
+					$("#info_bar .current_player").on(
+						"transitionend MSTransitionEnd webkitTransitionEnd oTransitionEnd",
+						function() {
+							$(this).removeClass("pulse");
+						}
+					);
+
+					// alert ("It's not this player's turn");
 					// ↑ todo: Ideally make the turn indicator flash red instead
 					return;
 				}
