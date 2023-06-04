@@ -761,10 +761,23 @@ from SCSS
 	top: 2px
 }
 
-.player_pulse {
+.current_player.pulse {
 	animation: player_pulse 4s ease-in-out 0s 1;
-	animation-iteration-count: 100
+	animation-iteration-count: 1;
 }
+
+@keyframes player_pulse {
+	0% {
+		background-color: #A7C4E0;
+	}
+	50% {
+		background-color: #B4D4F2;
+	}
+	100% {
+		background-color: #A7C4E0;
+	}
+}
+
 /* !NEW TURN PULSE STYLES (PARTWAY DONE)
 
 GameWorld.vue changes are at https://github.com/tog22/gods_vue/commit/f14faff612692f26938461902f6907023e335d8f
