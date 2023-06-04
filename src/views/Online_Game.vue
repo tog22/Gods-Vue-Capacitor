@@ -112,10 +112,10 @@ export default defineComponent({
 	},
 	created() {
 		/******************
-			**  🔥 FIREBASE  **
-			******************/
+		**  🔥 FIREBASE  **
+		******************/
 
-			if (Capacitor.isNativePlatform()) {
+		if (Capacitor.isNativePlatform()) {
 			
 			PushNotifications.requestPermissions().then(result => {
 				if (result.receive === 'granted') {
