@@ -51,6 +51,9 @@
 								🔑
 							</div>
 						</div> -->
+						<div class="back_arrow s_item" @click="reset_turn">
+							<img src="/images/back_arrow.png" alt="←" />
+						</div>
 						<div class="current_player s_item">
 							<span v-html="current_player_image"></span>
 						</div>
@@ -152,7 +155,7 @@ export default {
 			if (debug_mode) {
 				this.turn = 1
 				this.current_player = 1
-				this.sotw = JSON.parse(JSON.stringify(starting_sotw))
+				this.sotw = clone(starting_sotw)
 			}
  			
 			let get_url = 'https://godcloud.philosofiles.com/?action=get&game='+this.store.online.game_id+'&pw='+this.store.online.game_pass
@@ -1034,6 +1037,8 @@ export default {
 			// Pulse animation is added in computed property current_player_image
 			/// (Adding it with jQuery here doesn't work as it then gets overridden there)
 
+			this.reset_turn_sotw = clone(this.sotw)
+
 			if (this.online_game && !by_opponent) {
 				this.send_turn();
 			}
@@ -1104,7 +1109,7 @@ export default {
 		dummy_game_state(game_id = null, game_pass = null) {
 			this.turn = 1
 			this.current_player = 1
-			this.sotw = JSON.parse(JSON.stringify(starting_sotw))
+			this.sotw = clone(starting_sotw)
 		},
 
 		on_fcm_update_received(update) {
@@ -1181,10 +1186,14 @@ export default {
 
 		},
 
+		reset_turn() {
+			this.sotw = clone(this.reset_turn_sotw)
+		},
+
 		restart_game() {
 			this.turn = 					1
 			this.current_player = 			2
-			this.sotw = 					JSON.parse(JSON.stringify(starting_sotw))
+			this.sotw = 					clone(starting_sotw)
 			this.piece_has_moved = 			false
 			this.inspiration_has_moved = 	false
 			this.inspiration_locked = 		true
@@ -1270,7 +1279,7 @@ export default {
 		// ↓ Initial values - for online games these get updated in created(). They can't be set here because GodCloud is asyncronous.
         let turn = 1
         let current_player = 2
-        let sotw = JSON.parse(JSON.stringify(starting_sotw))
+        let sotw = clone(starting_sotw)
 		let online_is_loading = false
 
 		if (this.online_screen) {
@@ -1293,6 +1302,7 @@ export default {
             online_game:			this.online_screen,
 			online_is_loading:		online_is_loading,
 			show_restart_dialog:	false,
+			reset_turn_sotw:		clone(sotw),
             sotw: 					sotw,
         }
 
@@ -1311,6 +1321,10 @@ function lo(to_log) {
 
 function alo(to_log) {
 	bus.emit('debug display', to_log)
+}
+
+function clone(obj) {
+	return JSON.parse(JSON.stringify(obj))
 }
 
 </script>

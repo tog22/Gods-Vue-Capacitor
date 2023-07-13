@@ -713,6 +713,7 @@ from SCSS
 	margin-right: 0
 }
 
+.back_arrow img,
 .next_turn img {
 	width: 25px;
 	height: 25px;
