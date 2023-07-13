@@ -54,14 +54,14 @@
 						<div class="back_arrow s_item" @click="reset_turn">
 							<img src="/images/back_arrow.png" alt="←" />
 						</div>
-						<div class="current_player s_item">
-							<span v-html="current_player_image"></span>
-						</div>
 						<div class="next_turn s_item" @click="end_turn"><!-- was s_text_only -->
 							<img alt="End turn" src="/images/tick_green_desat.png" />
 							<!-- <div class="s_text">
 								End Turn
 							</div> -->
+						</div>
+						<div class="current_player s_item">
+							<span v-html="current_player_image"></span>
 						</div>
 						<div class="s_item" style="max-width: 80px; font-size: 0.7em; overflow: hidden;">
 							🇹{{  store.token }}
