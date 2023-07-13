@@ -331,7 +331,8 @@ export default {
 					this.unselect_piece()
 
 					// End turn/switch to the other player if appropriate
-
+					/* 
+					Disabled (making the tick compulsory)
 					if (this.piece_has_moved) {
 						if (!this.inspiration_locked) {
                             this.end_turn();
@@ -339,6 +340,7 @@ export default {
                             this.end_turn();
                         }
 					}
+					*/
 
 				} else {
 					// alert("Not a valid move");
