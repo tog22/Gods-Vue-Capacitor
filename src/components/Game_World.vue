@@ -1119,7 +1119,7 @@ export default {
 			let game_id = update.game_id
 			let game_pass = update.game_pass
 
-			if (game_id === this.store.online.game_id && game_pass === this.store.online.game_pass) {
+			if (game_id == this.store.online.game_id && game_pass == this.store.online.game_pass) {
 				this.get_game_state(game_id, game_pass)
 			} else {
 				lo('🚫 FCM received, but not this game')
