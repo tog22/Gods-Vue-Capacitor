@@ -65,15 +65,31 @@ export default {
             let occupant_image = ''
 			if (this.square.side === 1) {
 				if (this.square.occupant === 'mortal') {
-					occupant_image = '<img class="oi" src="/images/blue-m.png" />'
+					if (this.square.divinely_inspired) {
+						occupant_image = '<img class="oi" src="/images/blue-m-torch.png" />'
+					} else {
+						occupant_image = '<img class="oi" src="/images/blue-m.png" />'
+					}
 				} else if (this.square.occupant === 'angel') {
-					occupant_image = '<img class="oi" src="/images/blue-f.png" />'
+					if (this.square.divinely_inspired) {
+						occupant_image = '<img class="oi" src="/images/blue-f-torch.png" />'
+					} else {
+						occupant_image = '<img class="oi" src="/images/blue-f.png" />'
+					}
 				}
 			} else if (this.square.side === 2) {
 				if (this.square.occupant === 'mortal') {
-					occupant_image = '<img class="oi" src="/images/red-m.png" />'
+					if (this.square.divinely_inspired) {
+						occupant_image = '<img class="oi" src="/images/red-m-torch.png" />'
+					} else {
+						occupant_image = '<img class="oi" src="/images/red-m.png" />'
+					}
 				} else if (this.square.occupant === 'angel') {
-					occupant_image = '<img class="oi" src="/images/red-f.png" />'
+					if (this.square.divinely_inspired) {
+						occupant_image = '<img class="oi" src="/images/red-f-torch.png" />'
+					} else {
+						occupant_image = '<img class="oi" src="/images/red-f.png" />'
+					}
 				}
 			}
             // if (this.square.side === 1 & this.square.occupant === 'mortal') {
