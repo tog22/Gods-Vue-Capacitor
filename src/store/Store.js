@@ -17,7 +17,7 @@ const default_state = {
 			game_pass: null,
 			side: null,
 			// user: 				'Tomek',
-			// userpass: 			'pass22',
+			// userpass: 			'pass',
 			// game_id: 			22,
 			// game_pass: 			10559,
 			// side: 				1,
